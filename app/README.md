@@ -19,3 +19,8 @@ It has 4 folders:
     npm start
  ```
 
+## ROUTES
+
+For now the app has 2 routes:
+ - '**/**' - Home routes
+ - '**/weather**' - Weather route
