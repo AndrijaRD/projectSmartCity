@@ -2,8 +2,8 @@ const express = require('express');
 const mysql = require('mysql2');   // For accessing the Database
 const cors = require('cors');      // For allowing cross-origin resource sharing
 require('dotenv').config();        // For loading credentials from '.env' file
-const logClass = require('./logClass');
-const calculateDistance = require('./calculateDistance')
+const logClass = require('./modules/logClass');
+const calculateDistance = require('./modules/calculateDistance.js')
 
 //------------------------------------------------------------//
 // ------------------- C O N S T A N T S ---------------------//
