@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "ESLINT_CONFIG_PATH=.eslintrc.ci react-scripts build",
+    "build": "cross-env CI='' react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   }, 
