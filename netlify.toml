@@ -1,0 +1,9 @@
+[build]
+  base = "app"
+  command = "npm run build"
+  publish = "build"
+  cache = false
+
+
+[context.production.environment]
+  NODE_ENV = "production"

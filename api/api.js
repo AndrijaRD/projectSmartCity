@@ -2,7 +2,8 @@ const express = require('express');
 const mysql = require('mysql2');   // For accessing the Database
 const cors = require('cors');      // For allowing cross-origin resource sharing
 require('dotenv').config();        // For loading credentials from '.env' file
-const { logClass } = require('./logClass');
+const logClass = require('./modules/logClass');
+const calculateDistance = require('./modules/calculateDistance.js')
 
 //------------------------------------------------------------//
 // ------------------- C O N S T A N T S ---------------------//
@@ -10,6 +11,9 @@ const { logClass } = require('./logClass');
 
 const app = express();
 const port = 4001;
+
+const senors_get_link = "/get-sensors/:latitude/:longitude"
+const sensor_weather_insert_link = "/insert/weather/:sensor/:temperature/:humidity"
 
 app.use(express.json())
 app.use(cors());
@@ -55,46 +59,6 @@ function getDateTime(){
     return `${year}:${month}:${day} ${hours}:${minutes}:${seconds}`
 }
 
-/********************************************************************************************
-This function creates a rectangle from two points: 
-users latitude and longitude, and sensors latitude 
-and longitude Then it calculates the sides by 
-subtracting latitude and latitude and longitude
-and longitude that then forms a right triangle
-that we can use to calculate diagonal/distance.
-
-p2 is a sensors position and p1 is a users position.
-
-p2 = (x1, y1) = (latitude, longitude) *position of a sensor*
-   (p2)---------------|
-    |  +              |
-    |    +            |
-    |      +          |
-  h |        +  d     |
-    |          +      |
-    |            +    |
-    |              +  |
-    |_______________(p1)-> (x, y) = (latitude, longitude)
-            w            *users position*
-    
-    h is height that is equal to |y-y1|  (absolute value of one points height minus the height of the other point)
-    w is width that is equal to  |x-x1|  (same as height but with width)
-
-    now we have formed a right triangle that we can use patagorian therum to get the distance
-
-    w = x-x1
-    h = y-y1
-    d*d = w*w + h*h
-    d = sqrt(  (x-x1) * (x-x1)  +  (y-y1) * (y-y1)  )
-
-    *****************************************************
-    In the code bellow i dont take the absolute value    
-    when calculating height and width because they are   
-    being sqared so if the result was negative sqareing  
-    it will just make it positive.                       
-    *****************************************************
-*******************************************************************************************************/
-const calculateDistance = (x, y, x1, y1) => Math.sqrt( (x-x1)*(x-x1) + (y-y1)*(y-y1) );
 
 
 //------------------------------------------------------------//
@@ -102,19 +66,18 @@ const calculateDistance = (x, y, x1, y1) => Math.sqrt( (x-x1)*(x-x1) + (y-y1)*(y
 //------------------------------------------------------------//
 
 
-app.get("/sensors/get/:latitude/:longitude", async (req, res) => {
-    const log = logClass(
+app.get(senors_get_link, async (req, res) => {
+    const log = new logClass(
         [
             { s: true, m: "Successfully returned sensor list." },
             { s: false, m: "Failed to return sensor list."}
         ],
         req, res
     )
-
     const userLatitude = req.params.latitude;
     const userLongitude = req.params.longitude;
     try{ 
-        const [sensors] = await db.promise().query("select * from SENSORS where running=true;"); //Getting all working sensors
+        const [sensors] = await db.promise().query("select * from WEATHER_SENSORS where running=true;"); //Getting all working sensors
         const distances = []
 
         sensors.forEach(sensor => { // For each sensor canculating distance and adding it to the disatnces list
@@ -136,18 +99,18 @@ app.get("/sensors/get/:latitude/:longitude", async (req, res) => {
 
 // This route is for Weather Sensor
 // /sensor/weather/insert/WTHSEN_000001/34.7/48.6
-app.get("/sensor/weather/insert/:sensor/:temperature/:humidity", async (req, res) => {
-    const log = logClass([
+app.get(sensor_weather_insert_link, async (req, res) => {
+    const log = new logClass([
         { s: true, m: `Successfully saved ${req.params.sensor} sensor's measurement. `},
         { s: false, m: `Failed to save ${req.params.sensor} sensor's measurement.`}
     ])
     try{
-        const [rows] = await db.promise().query("select MAX(id) from MEASUREMENTS"); // GET LAST ID FROM WTH TABLE
+        const [rows] = await db.promise().query("select MAX(id) from WEATHER_MEASUREMENTS"); // GET LAST ID FROM WTH TABLE
         let lastID = rows[0]['MAX(id)'];
         lastID === null ? lastID = "MEA_000000" : "" // In case query didnt return anything (meaning table was empty)
         
         const dateTime = getDateTime()
-        command = "insert into MEASUREMENTS values(" +
+        command = "insert into WEATHER_MEASUREMENTS values(" +
             `"${incrementId(`${lastID}`)}", ` +         // MEASUREMENT ID
             `"${dateTime.split(" ")[0]}", ` +           // MEASUREMENT DATE
             `"${dateTime.split(" ")[1]}", ` +           // MEASUREMENT TIME
