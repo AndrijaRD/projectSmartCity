@@ -1,4 +1,4 @@
-import { useState, useEffect, use } from "react";
+import { useState } from "react";
 import './style/Weather.css'
 
 import Sidebar from "../Sidebar/Sidebar";
