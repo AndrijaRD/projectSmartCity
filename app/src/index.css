@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css?family=Ubuntu:100,200,300,400,500,600,700,800,900");
+@import url("https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Ubuntu", sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 body {

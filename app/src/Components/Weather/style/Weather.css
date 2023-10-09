@@ -23,4 +23,74 @@ main.Weather {
   background-color: var(--color1);
   padding: 2vh;
   display: flex;
+}
+main.Weather .mainContent {
+  margin-left: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+main.Weather .mainContent .today {
+  height: 96vh;
+  width: calc(100% - max(20%, 300px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+main.Weather .mainContent .today .top {
+  width: 95%;
+  height: 40vh;
+  display: flex;
+  justify-content: space-between;
+}
+main.Weather .mainContent .today .top .text-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  max-width: 60%;
+}
+main.Weather .mainContent .today .top .text-data .location {
+  display: flex;
+  align-items: center;
+}
+main.Weather .mainContent .today .top .text-data .location img {
+  height: 42px;
+  filter: invert(var(--invert));
+  margin: 0 10px;
+}
+main.Weather .mainContent .today .top .text-data .location h1 {
+  font-size: 54px;
+  color: var(--color4);
+  font-weight: 300;
+}
+main.Weather .mainContent .today .top .text-data h1.temperature {
+  font-size: 72px;
+  font-weight: 500;
+  color: var(--color4);
+  margin-inline: auto;
+}
+main.Weather .mainContent .today .top .visual-data {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40vh;
+  margin-right: 10%;
+}
+main.Weather .mainContent .today .top .visual-data img {
+  width: 100%;
+}
+main.Weather .mainContent .today .bottom {
+  background-color: var(--color2);
+  width: 95%;
+  height: 50vh;
+  border-radius: 20px;
+}
+main.Weather .mainContent .week {
+  background-color: var(--color2);
+  min-width: 300px;
+  width: 20%;
+  height: 96vh;
+  border-radius: 20px;
 }/*# sourceMappingURL=Weather.css.map */

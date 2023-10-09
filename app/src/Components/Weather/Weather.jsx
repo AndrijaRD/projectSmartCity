@@ -21,16 +21,38 @@ export default function Weather(){
 }
 
 function Dashboard(){
+    const weatherType = 0;
+    // 0 - Suncano bez kise iz vetra
+
     return(
-        <main className="Dashboard">
-            Dashboard
+        <main className="mainContent">
+            <div className="today">
+                <div className="top">
+                    <div className="text-data">
+                        <div className="location">
+                            <img src="/assets/location.png" alt="" />
+                            <h1>Pancevo, Srbija</h1>
+                        </div>
+                        <h1 className="temperature">36°C</h1>
+                    </div>
+                    <div className="visual-data">
+                        <img src={`/assets/weatherTypes/${weatherType}.png`} alt="" />
+                    </div>
+                </div>
+                <div className="bottom">
+                    
+                </div>
+            </div>
+            <div className="week">
+                
+            </div>
         </main>
     )
 }
 
 function Map(){
     return(
-        <main className="Map">
+        <main className="mainContent">
             Map
         </main>
     )
@@ -38,7 +60,7 @@ function Map(){
 
 function Cities(){
     return(
-        <main className="Cities">
+        <main className="mainContent">
             Cities
         </main>
     )
@@ -46,7 +68,7 @@ function Cities(){
 
 function Settings(){
     return(
-        <main className="Settings">
+        <main className="mainContent">
             Settings
         </main>
     )

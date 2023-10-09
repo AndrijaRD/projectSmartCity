@@ -24,5 +24,80 @@ main.Weather{
     padding: 2vh;
     display: flex;
 
-    
+    .mainContent{
+        margin-left: 20px;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        .today{
+            height: 96vh;
+            width: calc(100% - max(20%, 300px));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            //border: 1px solid #fff;
+
+            .top{
+                width: 95%;
+                height: 40vh;
+                display: flex;
+                justify-content: space-between;
+
+                .text-data{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    max-width: 60%;
+
+                    .location{
+                        display: flex;
+                        align-items: center;
+                        img{
+                            height: 42px;
+                            filter: invert(var(--invert));
+                            margin: 0 10px;
+                        }
+                        h1{
+                            font-size: 54px;
+                            color: var(--color4);
+                            font-weight: 300;
+                        }
+                    }
+                    h1.temperature{
+                        font-size: 72px;
+                        font-weight: 500;
+                        color: var(--color4);
+                        margin-inline: auto;
+                    }
+                }
+                .visual-data{
+                    width: 20%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 40vh;
+                    margin-right: 10%;
+
+                    img{
+                        width: 100%;
+                    }
+                }
+            }
+            .bottom{
+                background-color: var(--color2);
+                width: 95%;
+                height: 50vh;
+                border-radius: 20px;
+            }
+        }
+        .week{
+            background-color: var(--color2);
+            min-width: 300px;
+            width: 20%;
+            height: 96vh;
+            border-radius: 20px;
+        }
+    }
 }
