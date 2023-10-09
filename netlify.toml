@@ -1,7 +1,8 @@
 [build]
   base = "app"
-  publish = "app/build"
   command = "npm run build"
+  publish = "build"
+  cache = false
 
 
 [context.production.environment]
