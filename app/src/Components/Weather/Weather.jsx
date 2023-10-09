@@ -8,11 +8,47 @@ export default function Weather(){
     return(
         <main className="Weather">
             <Sidebar mode={mode} setMode={setMode} />
-            
+            {
+                mode === "Dashboard" ? <Dashboard /> : 
+                mode === "Map" ? <Map /> :
+                mode === "Cities" ? <Cities /> :
+                mode === "Settings" ? <Settings /> : "Some Error"
+            }
         </main>
     );
 }
 
+function Dashboard(){
+    return(
+        <main className="Dashboard">
+            Dashboard
+        </main>
+    )
+}
+
+function Map(){
+    return(
+        <main className="Map">
+            Map
+        </main>
+    )
+}
+
+function Cities(){
+    return(
+        <main className="Cities">
+            Cities
+        </main>
+    )
+}
+
+function Settings(){
+    return(
+        <main className="Settings">
+            Settings
+        </main>
+    )
+}
 
 function Sidebar({ mode, setMode }) {
     const modesList = ["Dashboard", "Map", "Cities", "Settings"]
