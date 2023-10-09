@@ -1,0 +1,16 @@
+:root {
+    --color1: #0a111e;
+    --color2: #1f283b;
+    --color3: #007cff;
+    --color4: #f0f0f2;
+    --invert: 1;
+    --logo: 0;
+}
+.lightmode {
+    --color1: #f5f5f5;
+    --color2: #eaecef;
+    --color3: #007cff;
+    --color4: #1f283b;
+    --invert: 0;
+    --logo: 1;
+}
