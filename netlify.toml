@@ -1,0 +1,6 @@
+[build]
+  command = "npm run build"  # Or the build command for your specific React app
+  publish = "app/build"     # Specifies the build output directory
+
+[context.production.environment]
+  NODE_ENV = "production"
