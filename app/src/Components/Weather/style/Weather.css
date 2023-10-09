@@ -4,6 +4,16 @@
   --color3: #007cff;
   --color4: #f0f0f2;
   --invert: 1;
+  --logo: 0;
+}
+
+.lightmode {
+  --color1: #f5f5f5;
+  --color2: #eaecef;
+  --color3: #007cff;
+  --color4: #1f283b;
+  --invert: 0;
+  --logo: 1;
 }
 
 main.Weather {
@@ -12,58 +22,120 @@ main.Weather {
   color: var(--color4);
   background-color: var(--color1);
   padding: 2vh;
+  display: flex;
 }
-main.Weather nav.sidebar {
-  background-color: var(--color2);
-  width: 110px;
+main.Weather .mainContent {
+  margin-left: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+main.Weather .mainContent .today {
   height: 96vh;
-  border-radius: 20px;
-  padding-top: 2vh;
+  width: calc(100% - max(20%, 300px));
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 }
-main.Weather nav.sidebar .logo {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 10vh;
+main.Weather .mainContent .today .top {
+  width: 95%;
+  height: 40vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 20px;
-  background-color: var(--color4);
+  justify-content: space-between;
 }
-main.Weather nav.sidebar .logo img {
-  width: 45px;
-}
-main.Weather nav.sidebar .modes {
-  height: 50vh;
+main.Weather .mainContent .today .top .text-data {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-around;
+  max-width: 60%;
 }
-main.Weather nav.sidebar .modes .option {
+main.Weather .mainContent .today .top .text-data .location {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  cursor: pointer;
-  width: 100px;
-  height: 100px;
+}
+main.Weather .mainContent .today .top .text-data .location img {
+  height: 42px;
+  filter: invert(var(--invert));
+  margin: 0 10px;
+}
+main.Weather .mainContent .today .top .text-data .location h1 {
+  font-size: 54px;
+  color: var(--color4);
+  font-weight: 300;
+}
+main.Weather .mainContent .today .top .text-data h1.temperature {
+  font-size: 72px;
+  font-weight: 500;
+  color: var(--color4);
+  margin-inline: auto;
+}
+main.Weather .mainContent .today .top .visual-data {
+  width: 20%;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 40vh;
+  margin-right: 10%;
+}
+main.Weather .mainContent .today .top .visual-data img {
+  width: 100%;
+}
+main.Weather .mainContent .today .bottom {
+  background-color: var(--color2);
+  width: 95%;
+  height: 50vh;
   border-radius: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
-main.Weather nav.sidebar .modes .option img {
+main.Weather .mainContent .today .bottom .measurement {
+  width: 25%;
+  height: 20vh;
+}
+main.Weather .mainContent .today .bottom .measurement .data {
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+main.Weather .mainContent .today .bottom .measurement .data .left img {
+  width: 50px;
   filter: invert(var(--invert));
-  width: 30px;
 }
-main.Weather nav.sidebar .modes .option h3 {
-  font-size: 16px;
-  margin-top: 10px;
+main.Weather .mainContent .today .bottom .measurement .data .right {
+  border-left: 1px solid #fff;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+}
+main.Weather .mainContent .today .bottom .measurement .data .right h3 {
+  font-size: 36px;
+}
+main.Weather .mainContent .today .bottom .measurement .data .right h3.title {
+  font-size: 24px;
+}
+main.Weather .mainContent .today .bottom .mainMeasurement {
+  margin: 20px 12.5%;
+}
+main.Weather .mainContent .today .bottom .mainMeasurement .data .left img {
+  width: 80px;
+}
+main.Weather .mainContent .today .bottom .mainMeasurement .data .right h3 {
+  font-size: 64px;
+}
+main.Weather .mainContent .today .bottom .mainMeasurement .data .right h3.title {
+  font-size: 38px;
   font-weight: 400;
 }
-main.Weather nav.sidebar .modes .active {
-  background-color: var(--color1);
+main.Weather .mainContent .week {
+  background-color: var(--color2);
+  min-width: 300px;
+  width: 20%;
+  height: 96vh;
+  border-radius: 20px;
 }/*# sourceMappingURL=Weather.css.map */
