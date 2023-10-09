@@ -74,3 +74,6 @@ class logClass {
         return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     }
 }
+
+
+module.exports = logClass;
