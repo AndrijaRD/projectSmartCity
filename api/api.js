@@ -11,6 +11,9 @@ const { logClass } = require('./logClass');
 const app = express();
 const port = 4001;
 
+const senors_get_link = "/sensors/get/:latitude/:longitude"
+const sensor_weather_insert_link = "/sensor/weather/insert/:sensor/:temperature/:humidity"
+
 app.use(express.json())
 app.use(cors());
 
@@ -102,7 +105,7 @@ const calculateDistance = (x, y, x1, y1) => Math.sqrt( (x-x1)*(x-x1) + (y-y1)*(y
 //------------------------------------------------------------//
 
 
-app.get("/sensors/get/:latitude/:longitude", async (req, res) => {
+app.get(senors_get_link, async (req, res) => {
     const log = logClass(
         [
             { s: true, m: "Successfully returned sensor list." },
@@ -136,7 +139,7 @@ app.get("/sensors/get/:latitude/:longitude", async (req, res) => {
 
 // This route is for Weather Sensor
 // /sensor/weather/insert/WTHSEN_000001/34.7/48.6
-app.get("/sensor/weather/insert/:sensor/:temperature/:humidity", async (req, res) => {
+app.get(sensor_weather_insert_link, async (req, res) => {
     const log = logClass([
         { s: true, m: `Successfully saved ${req.params.sensor} sensor's measurement. `},
         { s: false, m: `Failed to save ${req.params.sensor} sensor's measurement.`}
