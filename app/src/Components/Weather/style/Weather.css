@@ -86,6 +86,51 @@ main.Weather .mainContent .today .bottom {
   width: 95%;
   height: 50vh;
   border-radius: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+main.Weather .mainContent .today .bottom .measurement {
+  width: 25%;
+  height: 20vh;
+}
+main.Weather .mainContent .today .bottom .measurement .data {
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+main.Weather .mainContent .today .bottom .measurement .data .left img {
+  width: 50px;
+  filter: invert(var(--invert));
+}
+main.Weather .mainContent .today .bottom .measurement .data .right {
+  border-left: 1px solid #fff;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+}
+main.Weather .mainContent .today .bottom .measurement .data .right h3 {
+  font-size: 36px;
+}
+main.Weather .mainContent .today .bottom .measurement .data .right h3.title {
+  font-size: 24px;
+}
+main.Weather .mainContent .today .bottom .mainMeasurement {
+  margin: 20px 12.5%;
+}
+main.Weather .mainContent .today .bottom .mainMeasurement .data .left img {
+  width: 80px;
+}
+main.Weather .mainContent .today .bottom .mainMeasurement .data .right h3 {
+  font-size: 64px;
+}
+main.Weather .mainContent .today .bottom .mainMeasurement .data .right h3.title {
+  font-size: 38px;
+  font-weight: 400;
 }
 main.Weather .mainContent .week {
   background-color: var(--color2);
