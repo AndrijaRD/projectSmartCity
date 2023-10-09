@@ -89,10 +89,13 @@ main.Weather .mainContent .today .bottom {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-around;
+  overflow-y: auto;
 }
 main.Weather .mainContent .today .bottom .measurement {
-  width: 25%;
+  width: 30%;
   height: 20vh;
+  min-width: 300px;
 }
 main.Weather .mainContent .today .bottom .measurement .data {
   width: 100%;
@@ -101,9 +104,13 @@ main.Weather .mainContent .today .bottom .measurement .data {
   align-items: center;
   justify-content: center;
 }
+main.Weather .mainContent .today .bottom .measurement .data .left {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
 main.Weather .mainContent .today .bottom .measurement .data .left img {
-  width: 50px;
-  filter: invert(var(--invert));
+  width: 90px;
 }
 main.Weather .mainContent .today .bottom .measurement .data .right {
   border-left: 1px solid #fff;
@@ -114,22 +121,10 @@ main.Weather .mainContent .today .bottom .measurement .data .right {
   margin: 0 10px;
 }
 main.Weather .mainContent .today .bottom .measurement .data .right h3 {
-  font-size: 36px;
+  font-size: max(200%, 36px);
 }
 main.Weather .mainContent .today .bottom .measurement .data .right h3.title {
-  font-size: 24px;
-}
-main.Weather .mainContent .today .bottom .mainMeasurement {
-  margin: 20px 12.5%;
-}
-main.Weather .mainContent .today .bottom .mainMeasurement .data .left img {
-  width: 80px;
-}
-main.Weather .mainContent .today .bottom .mainMeasurement .data .right h3 {
-  font-size: 64px;
-}
-main.Weather .mainContent .today .bottom .mainMeasurement .data .right h3.title {
-  font-size: 38px;
+  font-size: 150%;
   font-weight: 400;
 }
 main.Weather .mainContent .week {
@@ -138,4 +133,37 @@ main.Weather .mainContent .week {
   width: 20%;
   height: 96vh;
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+}
+main.Weather .mainContent .week h3 {
+  margin: 10px;
+}
+main.Weather .mainContent .week .daysWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main.Weather .mainContent .week .daysWrapper .day {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  border-bottom: 4px solid var(--color1);
+  justify-content: space-around;
+}
+main.Weather .mainContent .week .daysWrapper .day img {
+  height: 40px;
+}
+main.Weather .mainContent .week .daysWrapper .day h3 {
+  margin: 0 5px;
+}
+main.Weather .mainContent .week .daysWrapper .currentDay {
+  background-color: var(--color1);
+  width: 96%;
+  border-radius: 20px;
+}
+main.Weather .mainContent .week .daysWrapper .before {
+  border: none;
 }/*# sourceMappingURL=Weather.css.map */

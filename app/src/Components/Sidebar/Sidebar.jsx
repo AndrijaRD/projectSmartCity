@@ -19,14 +19,14 @@ export default function Sidebar({ mode, setMode }) {
             {
                 modesList.map(item => (
                     <div key={item} className={item===mode ? "option active" : "option"} onClick={e => setMode(item)} >
-                        <img src={`/assets/${item.toLocaleLowerCase()}.png`} alt="" />
+                        <img src={`/assets/sidebar/${item.toLocaleLowerCase()}.png`} alt="" />
                         <h3>{item}</h3>
                     </div>
                 ))
             }
             </div>
             <div className="theme" onClick={changeTheme}>
-                <img src="/assets/theme.png" alt="" />
+                <img src="/assets/sidebar/theme.png" alt="" />
             </div>
         </nav>
     )

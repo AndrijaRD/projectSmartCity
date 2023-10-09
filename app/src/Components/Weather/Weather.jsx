@@ -22,7 +22,11 @@ export default function Weather(){
 
 function Dashboard(){
     const weatherType = 0;
-    // 0 - Suncano bez kise iz vetra
+    const weatherText = ["Suncano", "Oblacno", "Kisovito"]
+    const measurementTypes = ["Humidity", "Wind", "Gas", "Methane", "Radiation", "Toxic Particles"]
+    const measurementValues = ["22%", "3.5m/s", "8mol", "12mol/m3", "103Bq", "0.1μm"]
+    const weekDays = ["Pon", "Uto", "Sre", "Cet", "Pet", "Sub", "Ned"]
+    const currentDay = "Sre"
 
     return(
         <main className="mainContent">
@@ -40,83 +44,42 @@ function Dashboard(){
                     </div>
                 </div>
 
-
-
                 <div className="bottom">
-                    <div className="mainMeasurement measurement">
-                        <div className="data">
-                            <div className="left">
-                                <img src="/assets/measurementIcons/humidity.png" alt="" />
+                    {
+                        measurementTypes.map((type, i) => (
+                            <div className="measurement" key={type}>
+                                <div className="data">
+                                    <div className="left">
+                                        <img src={`/assets/measurementIcons/${type.split(" ")[0].toLocaleLowerCase()}.png`} alt="" />
+                                    </div>
+                                    <div className="right">
+                                        <h3 className="title">{type}:</h3>
+                                        <h3>{measurementValues[i]}</h3>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="right">
-                                <h3 className="title">Humidity:</h3>
-                                <h3>22%</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="mainMeasurement measurement">
-                        <div className="data">
-                            <div className="left">
-                                <img src="/assets/measurementIcons/wind.png" alt="" />
-                            </div>
-                            <div className="right">
-                                <h3 className="title">Wind:</h3>
-                                <h3>13m/s</h3>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div className="measurement">
-                        <div className="data">
-                            <div className="left">
-                                <img src="/assets/measurementIcons/gas.png" alt="" />
-                            </div>
-                            <div className="right">
-                                <h3 className="title">Gas:</h3>
-                                <h3>7m3</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="measurement">
-                        <div className="data">
-                            <div className="left">
-                                <img src="/assets/measurementIcons/methane.png" alt="" />
-                            </div>
-                            <div className="right">
-                                <h3 className="title">Methane:</h3>
-                                <h3>22mol</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="measurement">
-                        <div className="data">
-                            <div className="left">
-                                <img src="/assets/measurementIcons/radiation.png" alt="" />
-                            </div>
-                            <div className="right">
-                                <h3 className="title">Radiation:</h3>
-                                <h3>22Pa</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="measurement">
-                        <div className="data">
-                            <div className="left">
-                                <img src="/assets/measurementIcons/toxic.png" alt="" />
-                            </div>
-                            <div className="right">
-                                <h3 className="title">Toxic Particles:</h3>
-                                <h3>0.2mol</h3>
-                            </div>
-                        </div>
-                    </div>
+                        ))
+                    }
                 </div>
             </div>
             <div className="week">
+                <h3>This weeks data:</h3>
+                <div className="daysWrapper">
+                {
+                    weekDays.map(weekDay => {
+                        const num = Math.round((Math.random()-0.25)*2)
+                        const before = weekDays[weekDays.indexOf(weekDay)+1]
+                        return (
+                            <div className={currentDay===weekDay?'currentDay day':before===currentDay?'before day':'day'}>
+                                <h3 className="dayName">{weekDay}</h3>
+                                <img src={`/assets/weatherTypes/${num}.png`} alt="" />
+                                <h3 className="weatherText">{weatherText[num]}</h3>
+                                <h3 className="temp">23°C</h3>
+                            </div>
+                        )
+                    })
+                }
+                </div>
                 
             </div>
         </main>
