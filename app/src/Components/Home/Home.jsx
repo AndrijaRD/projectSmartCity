@@ -27,13 +27,13 @@ export default function Home() {
                 <div className="texts">
                     <h1 className="title">Project Smart City</h1>
                     <h3 className="subtext">Prvi moderni gratski sistem kvaliteta sredine!</h3>
-                    <button className="login">Isprobajte</button>
+                    <button className="login" onClick={() => window.location.href="#apps"}>Isprobajte</button>
                 </div>
                 <div className="rightSide">
                     <img src="/assets/components/train.png" alt="" />
                 </div>
             </div>
-            <div className="middle">
+            <div className="middle" id="apps">
                 <h1>Nase Aplikacije:</h1>
                 <div className="app-list">
                     {
