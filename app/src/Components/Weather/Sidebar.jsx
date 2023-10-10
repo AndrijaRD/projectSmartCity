@@ -1,5 +1,3 @@
-import './style/Sidebar.css'
-
 export default function Sidebar({ mode, setMode }) {
     const modesList = ["Dashboard", "Map", "Cities", "Settings"]
 
