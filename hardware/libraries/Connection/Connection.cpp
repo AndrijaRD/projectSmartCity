@@ -1,9 +1,9 @@
-#include "sc.h"
+#include "Connection.h"
 #include <ESP8266HTTPClient.h>
 
 
 /********** WIFI **********/
-void sc::ESP_WiFi::connect(String SSID, String Password) {
+void Connection::WiFi::connect(String SSID, String Password) {
     WiFi.mode(WIFI_OFF);
   	delay(1000);
   	WiFi.mode(WIFI_STA);
@@ -16,11 +16,11 @@ void sc::ESP_WiFi::connect(String SSID, String Password) {
 }
 
 /********** HTTPS **********/
-void sc::HttpsClient::setHost(String host){
+void Connection::HttpsClient::setHost(String host){
 	this->host = host;
 }
 
-String sc::HttpsClient::get(String path) {
+String Connection::HttpsClient::get(String path) {
 	if(this->host==""){
 		Serial.println("[LOG][ERROR] You have to set host before fetching. Use .setHost();");
 		return "Error";
@@ -41,15 +41,15 @@ String sc::HttpsClient::get(String path) {
 
 /********** HTTP **********/
 
-void sc::HttpClient::setHost(String host) {
+void Connection::HttpClient::setHost(String host) {
     this->host = host;
 }
 
-void sc::HttpClient::setPort(int port) {
+void Connection::HttpClient::setPort(int port) {
 	this->Port = port;
 }
 
-String sc::HttpClient::get(String path) {
+String Connection::HttpClient::get(String path) {
     if(this->host==""){
         Serial.println("[LOG][ERROR] You have to set host before fetching. Use .setHost();");
         return "Error";

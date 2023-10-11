@@ -1,9 +1,9 @@
-#ifndef SC_H
-#define SC_H
+#ifndef Connection_H
+#define Connection_H
 
 #include <ESP8266WiFi.h>
 
-namespace sc {
+namespace Connection {
 
     /* HTTPS CLIENT */
     class HttpsClient {
@@ -27,7 +27,7 @@ namespace sc {
     };
 
     /* STATIC WIFI CLASS */
-    class ESP_WiFi {
+    class WiFi {
     public:
         static void connect(String SSID, String Password);
     };

@@ -1,5 +1,7 @@
-#include <sc.h>
+#include <Connection.h>
 #include <DHT.h>
+
+using namespace Connection;
 
 #define DHTPIN D4
 #define DHTTYPE DHT11
@@ -16,7 +18,7 @@ const String host = "http://192.168.0.103:4001";
 
 void setup() {
   Serial.begin(115200);                         // START SERIAL COMMUNICATION
-  sc::ESP_WiFi::connect("dlink", "Mpupin2019"); // CONNECT TO WIFI
+  WiFi::connect("dlink", "Mpupin2019"); // CONNECT TO WIFI
   dht.begin();                                  // START SENSOR OBJECT
 }
 void loop() {
@@ -30,7 +32,7 @@ void loop() {
 }
 
 void sendData(){
-  sc::HttpClient client;                                        // HTTP CLIENT
+  HttpClient client;                                        // HTTP CLIENT
   client.setHost(host);                                         // SET API HOST URL
   client.get("/sensor/weather/insert/" + id + "/" + String(temperature) + "/" + String(humidity)); // FETCH THE URL WITH MESURED DATA IN ENDPOINT
 }
