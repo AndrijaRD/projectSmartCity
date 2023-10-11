@@ -1,10 +1,10 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-
-import Weather from './Components/Weather/Weather';
-import Home from './Components/Home/Home';
-import NotFound from './Components/404/404';
-
+import './App.css';
 import './colors.css'
+
+import Home from './Components/Home/Home';
+import Weather from './Components/Weather/Weather';
+import NotFound from './Components/NotFound/NotFound';
 
 export default function App() {
   return (
