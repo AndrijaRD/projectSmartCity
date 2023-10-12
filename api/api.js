@@ -14,6 +14,7 @@ const port = 4001;
 
 const senors_get_link = "/get-sensors/:latitude/:longitude"
 const sensor_weather_insert_link = "/insert/weather/:sensor/:temperature/:humidity"
+const app_weather_measurements = "/app/weather/measurements"
 
 app.use(express.json())
 app.use(cors());
@@ -124,6 +125,20 @@ app.get(sensor_weather_insert_link, async (req, res) => {
         return log.end(1, {status: 400}, error)
     }
     
+})
+
+app.get(app_weather_measurements, (req, res) => {
+    // Mock data for experimenting
+    const data = {
+        temperatura: 33,
+        vlaznost: 44.9,
+        brzina_vetra: 2.9,
+        gasovi: 15,
+        metan: 3.8,
+        radiacija: 152,
+        toksicne_cestice: 5.8
+    }
+    res.json(data)
 })
 
 app.listen(port, () => {
