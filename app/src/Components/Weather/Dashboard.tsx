@@ -1,38 +1,76 @@
-export default function Dashboard(){
-    const weatherType = 0;
-    const weatherText = ["Suncano", "Oblacno", "Kisovito"]
-    const measurementTypes = ["Humidity", "Wind", "Gas", "Methane", "Radiation", "Toxic Particles"]
-    const measurementValues = ["22%", "3.5m/s", "8mol", "12mol/m3", "103Bq", "0.1μm"]
-    const weekDays = ["Pon", "Uto", "Sre", "Cet", "Pet", "Sub", "Ned"]
-    const currentDay = "Sre"
+import { useEffect, useState } from "react";
 
-    return(
-        <main className="mainContent">
+type MeasurementType = {[type: string]: number | string};
+
+export default function Dashboard(): JSX.Element {
+    
+    const [weekForecast, setWeekForecast] = useState<number[]>([0, 0, 0, 0, 0, 0, 0]);
+    const [measurements, setMeasurements] = useState<MeasurementType>({});
+    const [location, setLocation] = useState<string>("Pancevo, Srbija");
+    const [today, setToday] = useState<number>(0);
+    
+    const forecastTypes: string[] = [ "Suncano", "Oblacno", "Kisovito" ]
+    const measurementTypes: { type: string, unit: string }[] = [
+        { type: "Vlaznost", unit: "%" },
+        { type: "Brzina Vetra", unit: "m/s" },
+        { type: "Gasovi", unit: "ppm" },
+        { type: "Metan", unit: "ppm" },
+        { type: "Radiacija", unit: "µSv/h" },
+        { type: "Toksicne Cestice", unit: "µg/m³" }
+    ]
+    /*
+        Measurements that are sent from api need to have all of the measurementTypes[types] plus "temperatura"
+        so measurements after fetching should look like this:
+        {
+            "temperatura": 30.2
+            "Vlaznost": 44.9
+            "Brzina Vetra": 2.8
+            ... (The rest of the measurementTypes types.)
+        }
+    */
+    const weekDays: string[] = [ "Pon", "Uto", "Sre", "Cet", "Pet", "Sub", "Ned" ]
+
+    const API_URL = "http://localhost:4001/app/weather/measurements"
+    useEffect(() => {
+        fetch(API_URL).then(res => {
+            if(!res.ok) throw new Error("Network problems.")
+            return res.json()
+        }).then((res: MeasurementType): void => {
+            setMeasurements(res || {});
+            setToday((new Date()).getDay())
+            console.log(res)
+        }).catch((error): void => {
+            console.log("An unknown error occurred: ", error);
+        })
+    }, [])
+
+    return (
+        <main className="dashboard">
             <div className="today">
                 <div className="top">
                     <div className="text-data">
                         <div className="location">
-                            <img src="/assets/location.png" alt="" />
-                            <h1>Pancevo, Srbija</h1>
+                            <img src="/assets/weather/map/location.png" alt="" />
+                            <h1>{location}</h1>
                         </div>
-                        <h1 className="temperature">36°C</h1>
+                        <h1 className="temperature">{measurements['temperatura']}°C</h1>
                     </div>
                     <div className="visual-data">
-                        <img src={`/assets/weatherTypes/${weatherType}.png`} alt="" />
+                        <img src={`/assets/weather/forecast/${weekForecast[today]}.png`} alt="" />
                     </div>
                 </div>
 
                 <div className="bottom">
                     {
                         measurementTypes.map((type, i) => (
-                            <div className="measurement" key={type}>
+                            <div className="measurement" key={type.type}>
                                 <div className="data">
                                     <div className="left">
-                                        <img src={`/assets/measurementIcons/${type.split(" ")[0].toLocaleLowerCase()}.png`} alt="" />
+                                        <img src={`/assets/weather/measurementIcons/${type.type.replaceAll(" ", "_").toLocaleLowerCase()}.png`} alt="" />
                                     </div>
                                     <div className="right">
-                                        <h3 className="title">{type}:</h3>
-                                        <h3>{measurementValues[i]}</h3>
+                                        <h3 className="title">{type.type}:</h3>
+                                        <h3>{measurements[type.type.toLocaleLowerCase().replaceAll(" ", "_")] + type.unit}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -44,14 +82,14 @@ export default function Dashboard(){
                 <h3>This weeks data:</h3>
                 <div className="daysWrapper">
                 {
-                    weekDays.map(weekDay => {
-                        const num = Math.round((Math.random()-0.25)*2)
-                        const before = weekDays[weekDays.indexOf(weekDay)+1]
+                    weekDays.map((weekDay, i) => {
+                        const num: number = Math.round((Math.random()-0.25)*2)
+                        const before: number = weekDays.indexOf(weekDay)+1
                         return (
-                            <div key={weekDay} className={currentDay===weekDay?'currentDay day':before===currentDay?'before day':'day'}>
+                            <div key={weekDay} className={today===i?'currentDay day':before===today?'before day':'day'}>
                                 <h3 className="dayName">{weekDay}</h3>
-                                <img src={`/assets/weatherTypes/${num}.png`} alt="" />
-                                <h3 className="weatherText">{weatherText[num]}</h3>
+                                <img src={`/assets/weather/forecast/${num}.png`} alt="" />
+                                <h3 className="weatherText">{forecastTypes[num]}</h3>
                                 <h3 className="temp">23°C</h3>
                             </div>
                         )
