@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 type MeasurementType = {[type: string]: number | string};
 
 export default function Dashboard(): JSX.Element {
-    
+
     const [weekForecast, setWeekForecast] = useState<number[]>([0, 0, 0, 0, 0, 0, 0]);
     const [measurements, setMeasurements] = useState<MeasurementType>({});
     const [location, setLocation] = useState<string>("Pancevo, Srbija");
