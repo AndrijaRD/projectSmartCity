@@ -96,14 +96,14 @@ main.Home .bottom .texts {
   display: flex;
   justify-content: space-around;
 }
-main.Home .bottom .texts .app {
+main.Home .bottom .texts .textbox {
   height: 30vh;
   width: 40%;
   padding: 10px;
   border-radius: 20px;
   background-color: var(--color2);
 }
-main.Home .bottom .texts .app h3 {
+main.Home .bottom .texts .textbox h3 {
   width: 50%;
   color: var(--color4);
   font-size: 22px;

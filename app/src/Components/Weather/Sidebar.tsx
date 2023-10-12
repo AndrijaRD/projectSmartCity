@@ -1,11 +1,15 @@
-export default function Sidebar({ mode, setMode }) {
-    const modesList = ["Dashboard", "Map", "Cities", "Settings"]
+import { Dispatch, SetStateAction } from "react"
 
-    const changeTheme = () => {
+type SidebarParamsType = { 
+    mode: string, 
+    setMode: Dispatch<SetStateAction<string>> 
+}
+
+export default function Sidebar({ mode, setMode }: SidebarParamsType): JSX.Element {
+    const modesList: string[] = [ "Dashboard", "Map", "Cities", "Settings" ];
+    const changeTheme = (): void => {
         const weather = document.querySelector("main.Weather");
-        if(weather.classList.contains("lightmode")){
-            return weather.classList.remove("lightmode");
-        } weather.classList.add("lightmode")
+        if(weather) weather.classList.contains("lightmode") ? weather.classList.remove("lightmode") : weather.classList.add("lightmode")
     }
 
     return(
@@ -15,15 +19,16 @@ export default function Sidebar({ mode, setMode }) {
             </div>
             <div className="modes">
             {
-                modesList.map(item => (
-                    <div key={item} className={item===mode ? "option active" : "option"} onClick={e => setMode(item)} >
+                modesList.map((item): JSX.Element => (
+                    <div key={item} className={item===mode ? "option active" : "option"} onClick={(): void => setMode(item)} >
                         <img src={`/assets/sidebar/${item.toLocaleLowerCase()}.png`} alt="" />
                         <h3>{item}</h3>
                     </div>
                 ))
             }
             </div>
-            <div className="theme" onClick={changeTheme}>
+            
+            <div className="theme" onClick={changeTheme}> 
                 <img src="/assets/sidebar/theme.png" alt="" />
             </div>
         </nav>

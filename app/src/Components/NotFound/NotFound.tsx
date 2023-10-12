@@ -1,6 +1,6 @@
 import './style/404.css'
 
-export default function NotFound(){
+export default function NotFound(): JSX.Element {
     return(
         <main className="NotFound">
             <h3><a href='/'>Nazad Kuci</a></h3>
