@@ -1,121 +1,130 @@
-main.Home {
-  min-width: 100%;
-  min-height: 100vh;
-  color: #fff;
-  background-color: var(--color1);
-  overflow-y: scroll;
+@media screen and (orientation: landscape) {
+  main.Home {
+    min-width: 100%;
+    min-height: 100vh;
+    color: #fff;
+    background-color: var(--color1);
+    overflow-y: scroll;
+  }
+  main.Home .top {
+    width: 100%;
+    height: 90vh;
+    display: flex;
+  }
+  main.Home .top .texts {
+    min-width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  main.Home .top .texts h1.title {
+    font-size: 82px;
+    margin-bottom: 20px;
+  }
+  main.Home .top .texts h3.subtext {
+    font-size: 24px;
+  }
+  main.Home .top .texts button.login {
+    width: 300px;
+    height: 40px;
+    margin: 40px 0;
+    background-color: var(--color3);
+    border: none;
+    border-radius: 20px;
+    color: var(--color4);
+    font-size: 100%;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  main.Home .top .rightSide {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 500px;
+  }
+  main.Home .top .rightSide img {
+    width: 90%;
+    height: -moz-fit-content;
+    height: fit-content;
+  }
+  main.Home .middle {
+    background-color: var(--color4);
+    width: 100%;
+    min-height: 30vh;
+    padding: 10px;
+    color: var(--color1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  main.Home .middle h1 {
+    font-size: 24px;
+  }
+  main.Home .middle .app-list {
+    margin-top: 10px;
+    display: flex;
+    overflow-x: scroll;
+    padding-bottom: 20px;
+  }
+  main.Home .middle .app-list .app {
+    height: 10vh;
+    min-width: 350px;
+    background-color: var(--color1);
+    border-radius: 20px;
+    color: var(--color4);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-left: 20px;
+    cursor: pointer;
+  }
+  main.Home .middle .app-list .app h3 {
+    font-size: 24px;
+  }
+  main.Home .middle .app-list .app img {
+    height: 6vh;
+  }
+  main.Home .bottom {
+    background-color: var(--color1);
+    width: 100%;
+    min-height: 30vh;
+    padding: 10px;
+    color: var(--color4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  main.Home .bottom .texts {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    overflow-x: scroll;
+    padding: 5px;
+    width: 90%;
+  }
+  main.Home .bottom .texts .textbox {
+    height: -moz-fit-content;
+    height: fit-content;
+    padding: 5px;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: var(--color2);
+  }
+  main.Home .bottom .texts .textbox h3 {
+    color: var(--color4);
+    font-size: 22px;
+    font-weight: 400;
+    border-right: 0px solid var(--color4);
+    height: calc(30vh - 20px);
+    padding: 0 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+  }
 }
-main.Home .top {
-  width: 100%;
-  height: 90vh;
-  display: flex;
-}
-main.Home .top .texts {
-  min-width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-main.Home .top .texts h1.title {
-  font-size: 82px;
-  margin-bottom: 20px;
-}
-main.Home .top .texts h3.subtext {
-  font-size: 24px;
-}
-main.Home .top .texts button.login {
-  width: 300px;
-  height: 40px;
-  margin: 40px 0;
-  background-color: var(--color3);
-  border: none;
-  border-radius: 20px;
-  color: var(--color4);
-  font-size: 100%;
-  font-weight: 600;
-  cursor: pointer;
-}
-main.Home .top .rightSide {
-  width: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-main.Home .top .rightSide img {
-  width: 90%;
-  height: -moz-fit-content;
-  height: fit-content;
-}
-main.Home .middle {
-  background-color: var(--color4);
-  width: 100%;
-  min-height: 30vh;
-  padding: 10px;
-  color: var(--color1);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-main.Home .middle h1 {
-  font-size: 24px;
-}
-main.Home .middle .app-list {
-  margin-top: 10px;
-  display: flex;
-}
-main.Home .middle .app-list .app {
-  height: 10vh;
-  width: 20%;
-  background-color: var(--color1);
-  border-radius: 20px;
-  color: var(--color4);
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-left: 20px;
-  cursor: pointer;
-}
-main.Home .middle .app-list .app h3 {
-  font-size: 24px;
-}
-main.Home .middle .app-list .app img {
-  height: 6vh;
-}
-main.Home .bottom {
-  background-color: var(--color1);
-  width: 100%;
-  min-height: 30vh;
-  padding: 10px;
-  color: var(--color4);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-main.Home .bottom .texts {
-  display: flex;
-  justify-content: space-around;
-}
-main.Home .bottom .texts .textbox {
-  height: 30vh;
-  width: 40%;
-  padding: 10px;
-  border-radius: 20px;
-  background-color: var(--color2);
-}
-main.Home .bottom .texts .textbox h3 {
-  width: 50%;
-  color: var(--color4);
-  font-size: 22px;
-  font-weight: 400;
-  border-right: 3px solid var(--color4);
-  height: calc(30vh - 20px);
-  padding: 0 10px;
-  text-align: center;
-  display: flex;
-  align-items: center;
-}
-
 ::-webkit-scrollbar {
   width: 12px;
 }

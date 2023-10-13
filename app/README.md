@@ -1,26 +1,27 @@
+# React + TypeScript + Vite
 
-# Structure
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-It has 4 folders:
- - **node_modules**
- - **design** - Is where design templates for wesite are.
- - **public** inside which is folder **assets** in which are images and videos that app uses
- - **src** in which are App.js and index.js and all other components sorted in the subfulders with the same name as the file and the component it self.
+Currently, two official plugins are available:
 
-### How to replicate and run
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
- 1. Install requried node modules:
- ```bash
-    npm install package.json
- ```
+## Expanding the ESLint configuration
 
- 2. Run the app
- ```bash
-    npm start
- ```
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-## ROUTES
+- Configure the top-level `parserOptions` property like this:
 
-For now the app has 2 routes:
- - '**/**' - Home routes
- - '**/weather**' - Weather route
+```js
+   parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json'],
+    tsconfigRootDir: __dirname,
+   },
+```
+
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list

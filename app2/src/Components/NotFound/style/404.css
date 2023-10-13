@@ -1,0 +1,29 @@
+main.NotFound {
+  background-color: var(--color1);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  color: var(--color4);
+  padding: 50px 0;
+}
+main.NotFound img {
+  height: 60vh;
+}
+main.NotFound .text {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+main.NotFound h1 {
+  font-size: 48px;
+}
+main.NotFound h3 {
+  font-size: 22px;
+  font-weight: 400;
+}
+main.NotFound a {
+  color: var(--color4);
+}/*# sourceMappingURL=404.css.map */

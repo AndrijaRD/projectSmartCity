@@ -1,24 +1,23 @@
 import './style/Home.css'
 
-type AppsType = {
-    name: string,
-    icon: string,
-    endpoint: string
-}
-
 export default function Home(): JSX.Element {
+    type AppsType = {
+        name: string,
+        icon: string,
+        endpoint: string
+    }
     const apps: AppsType[] = [
         {
             name: "Kvalitet Vazduha",
-            icon: "/home/app-icons/air.png",
+            icon: "/air.png",
             endpoint: "/weather"
         }, {
             name: "Auto-Putevi",
-            icon: "/home/app-icons/traffic.png",
+            icon: "/traffic.png",
             endpoint: "/traffic"
         }, {
             name: "Kvalitet Vode",
-            icon: "/home/app-icons/water.png",
+            icon: "/water.png",
             endpoint: "/water"
         }
     ];
@@ -45,7 +44,7 @@ export default function Home(): JSX.Element {
                     <button className="login" onClick={(): void => {window.location.href="#apps"}}>Isprobajte</button>
                 </div>
                 <div className="rightSide">
-                    <img src="/home/images/train.png" alt="" />
+                    <img src="/assets/components/train.png" alt="" />
                 </div>
             </div>
             <div className="middle" id="apps">
@@ -53,8 +52,8 @@ export default function Home(): JSX.Element {
                 <div className="app-list">
                     {
                         apps.map(app => (
-                            <div key={app.name} className="app" onClick={(): void => {window.location.href = app.endpoint}}>
-                                <img src={app.icon} alt="" />
+                            <div className="app" onClick={(): void => {window.location.href = app.endpoint}}>
+                                <img src={`/assets/app-icons/${app.icon}`} alt="" />
                                 <h3>{app.name}</h3>
                             </div>
                         ))
@@ -66,7 +65,7 @@ export default function Home(): JSX.Element {
                 <div className="texts">
                     {
                         aboutUsTextBoxs.map((textbox): JSX.Element => (
-                            <div className="textbox" key={textbox.text}>
+                            <div className="textbox">
                                 <h3>{textbox.text}</h3>
                                 <img src={textbox.image} alt="" />
                             </div>
