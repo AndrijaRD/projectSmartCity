@@ -29,7 +29,7 @@ export default function Sidebar({ mode, setMode }: SidebarParamsType): JSX.Eleme
             </div>
             
             <div className="theme" onClick={changeTheme}> 
-                <img src="/assets/sidebar/theme.png" alt="" />
+                <img src="/weather/sidebar/theme.png" alt="" />
             </div>
         </nav>
     )

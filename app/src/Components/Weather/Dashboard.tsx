@@ -41,6 +41,17 @@ export default function Dashboard(): JSX.Element {
             console.log(res)
         }).catch((error): void => {
             console.log("An unknown error occurred: ", error);
+            const data = {
+                temperatura: 33,
+                vlaznost: 44.9,
+                brzina_vetra: 2.9,
+                gasovi: 15,
+                metan: 3.8,
+                radiacija: 152,
+                toksicne_cestice: 5.8
+            }
+            setMeasurements(data);
+            setToday((new Date()).getDay())
         })
     }, [])
 
