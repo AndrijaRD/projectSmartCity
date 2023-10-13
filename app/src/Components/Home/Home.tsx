@@ -35,18 +35,16 @@ export default function Home(): JSX.Element {
 
     return (
         <main className="Home">
-            <nav className="navbar">
-
-            </nav>
             <div className="top">
+                <div className="rightSide">
+                    <img src="/home/images/train.png" alt="" />
+                </div>
                 <div className="texts">
                     <h1 className="title">Project Smart City</h1>
                     <h3 className="subtext">Prvi moderni gratski sistem kvaliteta sredine!</h3>
                     <button className="login" onClick={(): void => {window.location.href="#apps"}}>Isprobajte</button>
                 </div>
-                <div className="rightSide">
-                    <img src="/home/images/train.png" alt="" />
-                </div>
+                
             </div>
             <div className="middle" id="apps">
                 <h1>Nase Aplikacije:</h1>
@@ -68,7 +66,6 @@ export default function Home(): JSX.Element {
                         aboutUsTextBoxs.map((textbox): JSX.Element => (
                             <div className="textbox" key={textbox.text}>
                                 <h3>{textbox.text}</h3>
-                                <img src={textbox.image} alt="" />
                             </div>
                         ))
                     }
