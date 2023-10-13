@@ -43,6 +43,7 @@ main.Weather nav.sidebar .logo {
   justify-content: center;
   border-radius: 20px;
   background-color: var(--color4);
+  cursor: pointer;
 }
 main.Weather nav.sidebar .logo img {
   width: 45px;

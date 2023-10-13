@@ -50,23 +50,23 @@ export default function Dashboard(): JSX.Element {
                 <div className="top">
                     <div className="text-data">
                         <div className="location">
-                            <img src="/assets/weather/map/location.png" alt="" />
+                            <img src="/weather/map/location.png" alt="" />
                             <h1>{location}</h1>
                         </div>
                         <h1 className="temperature">{measurements['temperatura']}°C</h1>
                     </div>
                     <div className="visual-data">
-                        <img src={`/assets/weather/forecast/${weekForecast[today]}.png`} alt="" />
+                        <img src={`/weather/forecast/${weekForecast[today]}.png`} alt="" />
                     </div>
                 </div>
 
                 <div className="bottom">
                     {
-                        measurementTypes.map((type, i) => (
+                        measurementTypes.map(type => (
                             <div className="measurement" key={type.type}>
                                 <div className="data">
                                     <div className="left">
-                                        <img src={`/assets/weather/measurementIcons/${type.type.replaceAll(" ", "_").toLocaleLowerCase()}.png`} alt="" />
+                                        <img src={`/weather/measurementIcons/${type.type.replaceAll(" ", "_").toLocaleLowerCase()}.png`} alt="" />
                                     </div>
                                     <div className="right">
                                         <h3 className="title">{type.type}:</h3>
@@ -88,8 +88,8 @@ export default function Dashboard(): JSX.Element {
                         return (
                             <div key={weekDay} className={today===i?'currentDay day':before===today?'before day':'day'}>
                                 <h3 className="dayName">{weekDay}</h3>
-                                <img src={`/assets/weather/forecast/${num}.png`} alt="" />
-                                <h3 className="weatherText">{forecastTypes[num]}</h3>
+                                <img src={`/weather/forecast/${today===i?weekForecast[today]:num}.png`} alt="" />
+                                <h3 className="weatherText">{today===i?forecastTypes[weekForecast[today]]:forecastTypes[num]}</h3>
                                 <h3 className="temp">23°C</h3>
                             </div>
                         )

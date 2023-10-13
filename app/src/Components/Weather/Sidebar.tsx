@@ -15,13 +15,13 @@ export default function Sidebar({ mode, setMode }: SidebarParamsType): JSX.Eleme
     return(
         <nav className="sidebar">
             <div className="logo">
-                <img src="/assets/logo.png" alt="" />
+                <img onClick={(): void => {window.location.href = "/"}} src="/logo.png" alt="" />
             </div>
             <div className="modes">
             {
                 modesList.map((item): JSX.Element => (
                     <div key={item} className={item===mode ? "option active" : "option"} onClick={(): void => setMode(item)} >
-                        <img src={`/assets/sidebar/${item.toLocaleLowerCase()}.png`} alt="" />
+                        <img src={`/weather/sidebar/${item.toLocaleLowerCase()}.png`} alt="" />
                         <h3>{item}</h3>
                     </div>
                 ))
