@@ -1,0 +1,267 @@
+@media screen and (orientation: landscape) {
+  .Air {
+    padding: 2vh;
+    display: flex;
+    background: var(--color1);
+  }
+  .Air nav.NavBar {
+    background-color: var(--color2);
+    width: 100px;
+    height: 96vh;
+    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .Air nav.NavBar .logo {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: var(--color4);
+    cursor: pointer;
+  }
+  .Air nav.NavBar .logo img {
+    width: 45px;
+    filter: invert(var(--logo));
+  }
+  .Air nav.NavBar .logo #menu {
+    display: none;
+  }
+  .Air nav.NavBar .modes {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .Air nav.NavBar .modes .option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+  }
+  .Air nav.NavBar .modes .option img {
+    filter: invert(var(--invert));
+    width: 30px;
+  }
+  .Air nav.NavBar .modes .option h3 {
+    font-size: 16px;
+    margin-top: 10px;
+    font-weight: 400;
+    color: var(--color4);
+  }
+  .Air nav.NavBar .modes .active {
+    background-color: var(--color1);
+  }
+  .Air nav.NavBar .theme {
+    margin: 10px 0;
+    cursor: pointer;
+  }
+  .Air nav.NavBar .theme img {
+    width: 40px;
+    filter: invert(var(--invert));
+  }
+  .Air .Dashboard {
+    color: var(--color4);
+    margin-left: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .Air .Dashboard .portrait {
+    display: none;
+  }
+  .Air .Dashboard .landscape {
+    display: flex;
+  }
+  .Air .Dashboard .landscape .today {
+    height: 96vh;
+    width: calc(100% - max(20%, 300px));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .Air .Dashboard .landscape .today .top {
+    width: 95%;
+    height: 40vh;
+    display: flex;
+    justify-content: space-between;
+  }
+  .Air .Dashboard .landscape .today .top .text-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    max-width: 60%;
+  }
+  .Air .Dashboard .landscape .today .top .text-data .location {
+    display: flex;
+    align-items: center;
+  }
+  .Air .Dashboard .landscape .today .top .text-data .location img {
+    height: 42px;
+    filter: invert(var(--invert));
+    margin: 0 10px;
+  }
+  .Air .Dashboard .landscape .today .top .text-data .location h1 {
+    font-size: 54px;
+    color: var(--color4);
+    font-weight: 300;
+  }
+  .Air .Dashboard .landscape .today .top .text-data h1.temperature {
+    font-size: 72px;
+    font-weight: 500;
+    color: var(--color4);
+    margin-inline: auto;
+  }
+  .Air .Dashboard .landscape .today .top .visual-data {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40vh;
+    margin-right: 10%;
+  }
+  .Air .Dashboard .landscape .today .top .visual-data img {
+    width: 100%;
+  }
+  .Air .Dashboard .landscape .today .bottom {
+    background-color: var(--color2);
+    color: var(--color4);
+    width: 95%;
+    height: 50vh;
+    border-radius: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    overflow-y: auto;
+  }
+  .Air .Dashboard .landscape .today .bottom .measurement {
+    width: 30%;
+    height: 20vh;
+    min-width: 300px;
+    cursor: pointer;
+  }
+  .Air .Dashboard .landscape .today .bottom .measurement .data {
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .Air .Dashboard .landscape .today .bottom .measurement .data .left {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+  }
+  .Air .Dashboard .landscape .today .bottom .measurement .data .left img {
+    width: 90px;
+  }
+  .Air .Dashboard .landscape .today .bottom .measurement .data .right {
+    border-left: 1px solid #fff;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+  }
+  .Air .Dashboard .landscape .today .bottom .measurement .data .right h3 {
+    font-size: max(200%, 36px);
+  }
+  .Air .Dashboard .landscape .today .bottom .measurement .data .right h3.title {
+    font-size: 150%;
+    font-weight: 400;
+  }
+  .Air .Dashboard .landscape .today .bottom .measurement:hover {
+    background-color: var(--color1);
+    border-radius: 20px;
+  }
+  .Air .Dashboard .landscape .week {
+    background-color: var(--color1);
+    border: 2px solid var(--color2);
+    padding: 5px;
+    min-width: 300px;
+    width: 20%;
+    height: 96vh;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .Air .Dashboard .landscape .week h3 {
+    margin: 10px;
+  }
+  .Air .Dashboard .landscape .week .daysWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .Air .Dashboard .landscape .week .daysWrapper .day {
+    width: 100%;
+    height: 10vh;
+    background-color: var(--color2);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    justify-content: space-around;
+    cursor: pointer;
+  }
+  .Air .Dashboard .landscape .week .daysWrapper .day img {
+    height: 40px;
+  }
+  .Air .Dashboard .landscape .week .daysWrapper .day h3 {
+    margin: 0 5px;
+  }
+  .Air .Dashboard .landscape .week .daysWrapper .currentDay {
+    background: var(--color1);
+  }
+  .Air .marker {
+    color: #fffbff;
+    font-size: 10px;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 5px 10px;
+    display: flex;
+    border-radius: 20px;
+    text-align: center;
+    background-color: #f03;
+    width: fit-content;
+    white-space: nowrap;
+  }
+  .Air .out-of-scope {
+    background-color: #333333;
+  }
+  .Air .custom-icon {
+    display: flex;
+    min-width: none;
+    max-width: none;
+    width: -moz-max-content;
+    width: max-content;
+    align-items: center;
+    justify-content: center;
+  }
+  .Air .user {
+    color: var(--color4);
+    font-size: 10px;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 5px 10px;
+    display: flex;
+    border-radius: 20px;
+    text-align: center;
+    background-color: #000EA8;
+  }
+}/*# sourceMappingURL=Air.css.map */

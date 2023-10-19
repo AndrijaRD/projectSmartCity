@@ -1,4 +1,4 @@
-import './style/Home.css'
+import "./css/Home.css"
 
 type AppsType = {
     name: string,
@@ -11,7 +11,7 @@ export default function Home(): JSX.Element {
         {
             name: "Kvalitet Vazduha",
             icon: "/home/app-icons/air.png",
-            endpoint: "/weather"
+            endpoint: "/air"
         }, {
             name: "Auto-Putevi",
             icon: "/home/app-icons/traffic.png",
