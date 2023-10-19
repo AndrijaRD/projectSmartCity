@@ -1,16 +1,16 @@
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Home from './Components/Home/Home';
-import Weather from './Components/Weather/Weather';
+import Air from './Components/Air/Air';
 import NotFound from './Components/NotFound/NotFound';
 
-export default function App(): JSX.Element {
+export default function App() {
 	return (
 		<Router>
 			<Routes>
-				<Route path='/' element={<Home />} />
-				<Route path='/weather' element={<Weather />} />
-				<Route path='*' element={<NotFound />} />
+				<Route path="/" element={<Home />} />
+				<Route path="/air" element={<Air />} />
+				<Route path="*" element={<NotFound />} />
 			</Routes>
 		</Router>
 	);

@@ -1,4 +1,4 @@
-import './style/404.css'
+import "./css/NotFound.css"
 
 export default function NotFound(): JSX.Element {
     return(
