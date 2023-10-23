@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react"
-import changeTheme from "../../../Functions/ChangeTheam";
+import changeTheme from "../../../assets/ChangeTheam";
 
 export default function NavBar({ mode, setMode }: { mode: string, setMode: Dispatch<SetStateAction<string>> }): JSX.Element {
     const modesList: string[] = [ "Dashboard", "Map", "Stats", "Settings" ];

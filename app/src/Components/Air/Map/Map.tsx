@@ -1,101 +1,63 @@
-import { map as L_map, circle as L_circle, tileLayer, marker, divIcon, LatLngExpression, Map as L_Map, polygon, circle } from 'leaflet';
-import { useEffect } from 'react';
+import { Circle, map as L_map, Marker, Polyline, tileLayer} from 'leaflet';
+import { Dispatch, useEffect } from 'react';
+import { createPolyline, createActiveSensorMarker, createUserMarker, createOutOfScopeSensorMarker, createSelectedMarker, round } from '../../../assets/functions';
+import { sensorsDataType } from '../../../assets/types';
 
-const createActiveSensorMarker = (map: L_Map, location: LatLngExpression, sensorID: number): void => {
-    const markerIcon = divIcon({
-        className: 'custom-icon',
-        html: `<h5 class="marker">SENSOR ${sensorID}</h1>`,
-        iconSize: [80, 40],
-        iconAnchor: [40, 20]
-    });
-    marker(location, {icon: markerIcon}).addTo(map);
+const lastSelectedMarker: (Marker | Circle)[] = []
+const activeSenorLayers: any = []
+var newLocation: number[] = [0, 0];
 
-    [
-        { fillColor: "#ff00338f", radius: 20 },
-        { fillColor: "#ff00336f", radius: 40 },
-        { fillColor: "#ff00334f", radius: 60 }
-    ].map(c => 
-        L_circle(location, {
-            color: '',
-            fillColor: c.fillColor,
-            fillOpacity: 1,
-            radius: c.radius
-        }).addTo(map)
-    )
-}
-
-const createOutOfScopeSensorMarker = (map: L_Map, location: LatLngExpression, sensorID: number): void => {
-    const markerIcon = divIcon({
-        className: 'custom-icon',
-        html: `<h5 class="marker out-of-scope">SENSOR ${sensorID}</h1>`,
-        iconSize: [80, 40],
-        iconAnchor: [40, 20]
-    });
-
-    [
-        { fillColor: "#333333ff", radius: 10 },
-        { fillColor: "#333333ff", radius: 20 },
-        { fillColor: "#333333ff", radius: 30 }
-    ].map(c => 
-        L_circle(location, {
-            color: '',
-            fillColor: c.fillColor,
-            radius: c.radius
-        }).addTo(map)
-    )
-    marker(location, {icon: markerIcon}).addTo(map);
-}
-
-const createUserMarker = (map: L_Map, location: LatLngExpression): void => {
-    const markerIcon = divIcon({
-        className: 'custom-icon',
-        html: `<h5 class="user">You</h1>`,
-        iconSize: [80, 40],
-        iconAnchor: [40, 20]
-    });
-    marker(location, {icon: markerIcon}).addTo(map)
-    L_circle(location, {
-        color: '#000EA8',
-        fillColor: '#000EA8',
-        radius: 50
-    }).addTo(map);
-}
-
-const createArea = (map: L_Map, points: LatLngExpression[]): void => { polygon(points).addTo(map); }
-
-const generateData = () => {
-    var sensorLocations: LatLngExpression[] = [];
-    var activeSensors: {location: LatLngExpression, id: number}[] = [];
-    var ouOfScopeSensors: {location: LatLngExpression, id: number}[] = []
-    for(var i = 0; i < 100; i++){
-        const lat = 44.865749 + ( (Math.random()/50) * (Math.random()>0.5?-1:1) )
-        const lon = 20.642635 + ( (Math.random()/50) * (Math.random()>0.5?-1:1) )
-        const location: LatLngExpression = [lat, lon]
-        sensorLocations.push(location)
-        const item = {location: location, id: i}
-        if(activeSensors.length < 3) activeSensors.push(item)
-        else ouOfScopeSensors.push(item)
-    }
-    console.log(sensorLocations)
-    return [activeSensors, ouOfScopeSensors]
-}
-
-export default function Map(){
-    const userLocation: LatLngExpression = [44.865749, 20.642635]
-
-    const [activeSensors, ouOfScopeSensors] = generateData();
+export default function Map(
+    // ---       ,                   ---         ,          USED TO SET NEW LOCATION,             USED TO RE-FETCH DATA WITH NEW LOCATION
+    { sensorsData,                   userLocation,          setUserLocation,                      reFetchData }: 
+    {sensorsData: sensorsDataType[], userLocation: number[], setUserLocation: Dispatch<number[]>, reFetchData: Dispatch<boolean>}
+){
 
     useEffect((): any => {
-        const map: any = L_map('map').setView(activeSensors[0].location, 17);
+        const activeSensors: number[] = []; sensorsData.map(s=>s.active?activeSensors.push(s.id):"");
+        console.log(" +++ +++ +++ ReRendering Map +++ +++ +++ \n Location: " + userLocation + ", AS: " + activeSensors)
+        
+        const map: any = L_map('map').setView([userLocation[0], userLocation[1]], 16);
         tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-        activeSensors.map(loc => createActiveSensorMarker(map, loc.location, loc.id))
-        ouOfScopeSensors.map(loc => createOutOfScopeSensorMarker(map, loc.location, loc.id))
-        //createArea(map, sensorLocations);
-        createUserMarker(map, userLocation);
 
+        handleSensorPlacing(map);
+
+        map.on('contextmenu', (e: any): void => handleSelectMarker(map, e.latlng.lat, e.latlng.lng));
+        
         return () => map.remove()
-    })
+    }, [sensorsData, userLocation])
 
+    const handleSensorPlacing = (map: any) => {
+        activeSenorLayers.length = 0
+        sensorsData.map(sensor => {
+            if(sensor.active) {
+                activeSenorLayers.push(createPolyline(map, [userLocation[0], userLocation[1]], sensor.location))
+                createActiveSensorMarker(map, sensor.location, sensor.id, sensor.measurement).map(e => activeSenorLayers.push(e))
+            }
+            else createOutOfScopeSensorMarker(map, sensor.location, sensor.id)
+        })
+        createUserMarker(map, [userLocation[0], userLocation[1]]);
+    }
 
+    const handleSelectMarker = (map: any, lat: number, lng: number) => {
+        const optionFunctions = [
+            () => navigator.clipboard.writeText(newLocation.toString()),
+            handleLocationChange
+        ]
+        lastSelectedMarker.forEach((marker: any) => marker.remove());
+        lastSelectedMarker.length = 0;
+        createSelectedMarker(map, [lat, lng]).map(e => lastSelectedMarker.push(e)) 
+        document.querySelectorAll('#custom-menu .option').forEach((e: any, i: number) => e.onclick=optionFunctions[i])
+
+        newLocation = [round(lat, 4), round(lng, 4)];
+    }
+
+    const handleLocationChange = () => {
+        console.log("Setting new location: " + newLocation)
+        activeSenorLayers.map((layer: any) => layer.remove())
+        setUserLocation(newLocation);
+        reFetchData(true);
+    }
+    
     return <div id="map" style={{ height: '96vh', width: '100%' }}></div>
 }
