@@ -1,5 +1,5 @@
 import { Polyline, circle as L_circle, marker, divIcon, LatLngExpression, Map as L_Map, polygon, Circle, Marker } from 'leaflet';
-import { api } from './const';
+import { api, dpk } from './const';
 
 
 export const round = (num: number, digits: number):number => Math.round(num*(10**digits))/(10**digits)
@@ -79,16 +79,14 @@ export const createUserMarker = (map: L_Map, location: LatLngExpression): (Marke
     c.addTo(map);
     return [m, c]
 }
-export const createSelectedMarker = (map: L_Map, location: number[]): (Marker | Circle)[] => {
-    const round = (num: number):number => Math.round(num*(10**5))/(10**5)
+export const createSelectedMarker = (map: L_Map, location: number[], options: string[]): (Circle | Marker)[] => {
     const markerIcon = divIcon({
         className: 'custom-icon',
         html: `
             <div class="selected marker"
                 <h5 class="title">SELECTED</h1>
                 <div id="custom-menu">
-                    <div class='option'>${round(location[0])}, ${round(location[1])}</div>
-                    <div class='option'>Set your location</div>
+                    ${options.map(o => `<div class='option'>${o}</div>`).toString().replaceAll(",", "")}
                 </div>
             </div>
             `,
@@ -101,10 +99,14 @@ export const createSelectedMarker = (map: L_Map, location: number[]): (Marker | 
     c.addTo(map)
     return [m, c]
 }
-export const createPolyline = (map: L_Map, userLocation: LatLngExpression, sensorLocations: LatLngExpression): Polyline => {
-    var pointList = [userLocation, sensorLocations];
-
-    const p = new Polyline(pointList, {
+export const createStatsCircle = (map: L_Map, location: number[]): (Polyline | Circle)[] => {
+    const c: Circle<any> = L_circle([location[0], location[1]], {color: '#266c1a',fillColor: '#266c1a',radius: 10_000})
+    const p: Polyline<any> = createPolyline(map, [location[0], location[1]], [location[0]+(dpk*10), location[1]])
+    c.addTo(map)
+    return [c, p]
+}
+export const createPolyline = (map: L_Map, p1: LatLngExpression, p2: LatLngExpression): Polyline => {
+    const p = new Polyline([p1, p2], {
         color: 'red',
         weight: 3,
         opacity: 0.5,

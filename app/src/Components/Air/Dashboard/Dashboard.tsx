@@ -7,7 +7,7 @@ type MeasurementType = {[type: string]: number | string};
 
 const getAverage = (sensorData: sensorsDataType[]) => {
     const averageValues: {[item: string]: number} = {}
-    sensorData.map((s, i) => {
+    sensorData.map(s => {
         if(!s.active) return
         Object.keys(s.measurement).forEach(m => {
             if(!averageValues[m]) return averageValues[m] = parseInt(s.measurement[m])
@@ -58,6 +58,7 @@ export default function Dashboard( { sensorData, userLocation }: {sensorData: se
                 </div>
                 <div className="today-stats active">
                 {
+                    // Air Measurement Dictionary
                     AMD.map(type => (
                         <div className="measurement" key={type.type}>
                             <img src={`/weather/measurementIcons/${type.srb.replaceAll(" ", "_").toLocaleLowerCase()}.png`} alt="" />

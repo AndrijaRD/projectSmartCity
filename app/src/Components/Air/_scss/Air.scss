@@ -1,6 +1,6 @@
 @mixin NavBar_landscape{
     nav.NavBar{
-        background-color: var(--color2);
+        background-color: var(--sidecolor);
         width: 100px;
         height: 96vh;
         border-radius: 20px;
@@ -17,7 +17,7 @@
             align-items: center;
             justify-content: center;
             border-radius: 20px;
-            background-color: var(--color4);
+            background-color: var(--opposite);
             cursor: pointer;
             
             img{ width: 45px; filter: invert(var(--logo)); }
@@ -48,10 +48,10 @@
                     font-size: 16px;
                     margin-top: 10px;
                     font-weight: 400;
-                    color: var(--color4);
+                    color: var(--opposite);
                 }
             }
-            .active{ background-color: var(--color1); }
+            .active{ background-color: var(--main); }
         }
         .theme{
             margin: 10px 0;
@@ -63,7 +63,7 @@
 }
 @mixin Dashboard_landscape{
     .Dashboard{
-        color: var(--color4);
+        color: var(--opposite);
         margin-left: 20px;
         display: flex;
         justify-content: space-between;
@@ -72,17 +72,18 @@
         .portrait{display: none;}
         .landscape{
             display: flex;
+            background-color: var(--main);
             .today{
                 height: 96vh;
                 width: calc(100% - max(20%, 300px));
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                justify-content: space-between;
+                justify-content: space-around;
                 
                 .top{
                     width: 95%;
-                    height: 40vh;
+                    height: 35vh;
                     display: flex;
                     justify-content: space-between;
                     
@@ -96,12 +97,12 @@
                             display: flex;
                             align-items: center;
                             img{ height: 42px; filter: invert(var(--invert)); margin: 0 10px; }
-                            h1{ font-size: 54px; color: var(--color4); font-weight: 300; }
+                            h1{ font-size: 54px; color: var(--opposite); font-weight: 300; }
                         }
                         h1.temperature{
                             font-size: 72px;
                             font-weight: 500;
-                            color: var(--color4);
+                            color: var(--opposite);
                             margin-inline: auto;
                         }
                     }
@@ -117,8 +118,8 @@
                 }
     
                 .bottom{
-                    background-color: var(--color2);
-                    color: var(--color4);
+                    background-color: var(--sidecolor);
+                    color: var(--opposite);
                     width: 95%;
                     height: 50vh;
                     border-radius: 20px;
@@ -161,18 +162,18 @@
                         }
                     }
                     .measurement:hover{
-                        background-color: var(--color1);
+                        background-color: var(--main);
                         border-radius: 20px;
                     }
                 }
             }
             .week{
-                background-color: var(--color1);
-                border: 2px solid var(--color2);
+                background-color: var(--main);
+                border: 2px solid var(--sidecolor);
                 padding: 5px;
                 min-width: 300px;
                 width: 20%;
-                height: 96vh;
+                height: 90vh;
                 border-radius: 20px;
                 display: flex;
                 flex-direction: column;
@@ -186,7 +187,7 @@
                     .day{
                         width: 100%;
                         height: 10vh;
-                        background-color: var(--color2);
+                        background-color: var(--sidecolor);
                         border-radius: 20px;
                         display: flex;
                         align-items: center;
@@ -197,7 +198,7 @@
                         img{height: 40px;}
                         h3{margin: 0 5px}
                     }
-                    .currentDay{background: var(--color1);}
+                    .currentDay{background: var(--main);}
                 }
             }
         }
@@ -238,8 +239,8 @@
                 bottom: -20px;
                 left: -50;
                 font-weight: 600;
-                background-color: var(--color1);
-                color: var(--color4);
+                background-color: var(--main);
+                color: var(--opposite);
                 min-width: 150px;
                 flex-direction: column;
                 justify-content: space-evenly;
@@ -272,7 +273,7 @@
             .data{display: none;}
         }
         .user{
-            color: var(--color4);
+            color: var(--opposite);
             font-size: 10px;
             width: fit-content;
             padding: 5px 10px;
@@ -282,7 +283,7 @@
             background-color: #000EA8;
         }
         .selected{
-            color: var(--color4);
+            color: var(--opposite);
             font-size: 10px;
             width: fit-content;
             padding: 5px 10px;
@@ -292,7 +293,7 @@
             background-color: #266c1a;
 
             #custom-menu{
-                width: 190px;
+                min-width: 190px;
                 height: max-content;
                 position: absolute;
                 z-index: 1000;
@@ -310,6 +311,7 @@
                     cursor: pointer;
                     font-weight: 500;
                     display: flex;
+                    padding-right: 10px;
                     align-items: center;
                     padding-left: 10px;
                 }
@@ -332,7 +334,7 @@
         justify-content: center;
 
         .atom{
-            background-color: var(--color2);
+            background-color: var(--sidecolor);
             display: flex;
             width: fit-content;
             align-items: center;
@@ -345,7 +347,7 @@
             margin: 20px 0;
             font-weight: 500;
             font-size: 36px;
-            color: var(--color4);
+            color: var(--opposite);
         }
     }
 }
@@ -358,7 +360,7 @@
     .Air{
         padding: 2vh;
         display: flex;
-        background: var(--color1);
+        background: var(--main);
         @include NavBar_landscape();
         @include Dashboard_landscape();
         @include Map_landscape();

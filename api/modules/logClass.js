@@ -1,4 +1,4 @@
-const getDateTime = require('./modules/getDateTime.js')
+const getDateTime = require('./getDateTime.js')
 
 const y = "\x1b[33m" // yellow
 const b = "\x1b[34m" // blue
@@ -86,7 +86,7 @@ class logClass {
         
         } catch (err){ //  if there was error up just console log it and if header hasn't been already sent - send it
             console.log(`\n\t[LOG][CRITICAL-ERROR] ${err}`) // In case there was some program error
-            if(!this.#res.headersSent) this.#res.status(400).json({status: 400})
+            if(!this.#res.headersSent) this.#res.status(500).json({ error: "Internal Server Error" });
         }
     }
 }

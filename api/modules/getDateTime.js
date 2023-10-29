@@ -1,4 +1,4 @@
-export default function getDateTime(){
+function getDateTime(){
     const now = new Date();
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -8,3 +8,5 @@ export default function getDateTime(){
     const seconds = String(now.getSeconds()).padStart(2, '0');
     return `${year}:${month}:${day} ${hours}:${minutes}:${seconds}`;
 }
+
+module.exports = getDateTime;

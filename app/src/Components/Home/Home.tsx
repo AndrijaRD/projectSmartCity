@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import "./css/Home.css"
 
 type AppsType = {
@@ -33,8 +34,25 @@ export default function Home(): JSX.Element {
         }
     ]
 
+    const [displayLogin, setDisaplyLogin] = useState(false);
+
+    useEffect(() => {
+        if(localStorage.getItem("freshLogin") === "true"){
+            setDisaplyLogin(true)
+            localStorage.setItem("freshLogin", "false")
+            setTimeout(() => setDisaplyLogin(false), 5000)
+        }
+    }, [])
+
     return (
         <main className="Home">
+            {
+                displayLogin ?  <div className="notification">
+                                    <h3>You have been logged in. Pick the app to use.</h3>
+                                </div>
+                                :
+                                ""
+            }
             <div className="top">
                 <div className="rightSide">
                     <img src="/home/images/train.png" alt="" />
@@ -42,7 +60,7 @@ export default function Home(): JSX.Element {
                 <div className="texts">
                     <h1 className="title">Project Smart City</h1>
                     <h3 className="subtext">Prvi moderni gratski sistem kvaliteta sredine!</h3>
-                    <button className="login" onClick={(): void => {window.location.href="#apps"}}>Isprobajte</button>
+                    <button className="login" onClick={(): void => {window.location.href="/account/login"}}>Ulogujte se</button>
                 </div>
                 
             </div>

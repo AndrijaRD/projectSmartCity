@@ -2,9 +2,12 @@ const express = require('express');
 const mysql = require('mysql2');   // For accessing the Database
 const cors = require('cors');      // For allowing cross-origin resource sharing
 require('dotenv').config();        // For loading credentials from '.env' file
-const logClass = require('./modules/logClass');
+const logClass = require('./modules/logClass.js');
 const calculateDistance = require('./modules/calculateDistance.js')
-const getRandomNum = require('./modules/getRandomNum.js')
+const getRandomNum = require('./modules/getRandomNum.js');
+const bcrypt = require('bcrypt');
+const generateToken = require('./modules/generateToken.js')
+const saveToken = require('./modules/saveToken.js')
 
 //------------------------------------------------------------//
 // ------------------- C O N S T A N T S ---------------------//
@@ -12,6 +15,10 @@ const getRandomNum = require('./modules/getRandomNum.js')
 
 const app = express();
 const port = 4001;
+
+// Distance per kilometer
+// This is the coordinate distance between two points that are 1km a part
+const dpk = 0.00899322
 
 app.use(express.json())
 app.use(cors());
@@ -23,9 +30,16 @@ const db = mysql.createConnection({
     database: process.env.DB_NAME,
 }); // This where we are loading database credentials from .env file
 
+function generatePasswordHash(){
+    const salt = bcrypt.genSaltSync(10);
+    console.log("HASH: " + bcrypt.hashSync("password", salt))
+    console.log("SALT: " + salt)
+}
+
 db.connect((err) => {
     if (err) { console.log('[API][DATABASE] Not connected.'); process.exit(1); }
     console.log('[API][DATABASE] Connected.');
+    generatePasswordHash()
 });
 
 const y = "\x1b[33m" // yellow
@@ -111,10 +125,30 @@ app.get("/sensors/air/:latitude/:longitude", async (req, res) => {
             console.log(data.map(s => s.active?s.id:""))
             return log.end(0, data)
         })
-    .catch(error => { console.error("Error:", error);});
-    return log.end(1)
+    .catch(error => log.end(1));
+    
 })
 
+app.post("/account/login", async (req, res) => {
+    const log = new logClass(
+        [
+            {s: true, m: "User Logged in."},
+            {s: true, m: "User Failed to Log in."},
+            {s: false, m: "Failed to check Log in. Error"}
+        ],
+        req, res
+    );
+    try {
+        const [[userData]] = await db.promise().query(`SELECT * FROM USERS WHERE email="${req.body['email']}"`);
+        if (!userData) return log.end(1, {"matching": false});
+        if ((await bcrypt.hash(req.body['password'], userData.salt)) === userData.password){
+            const token = generateToken();
+            db.promise().query(`insert into ACTIVE_TOKENS(user, token) values("${userData.id}", "${token}")`)
+            return log.end(0, {"matching": true, "token": token})
+        }
+        else return log.end(1, {"matching": false});
+    } catch (error) { return log.end(2, {"matching": false}, error);}
+});
 
 // ROUTE FOR CREATING NEW AIR SENSOR INSTANCE
 app.post("/sensors/air", async (req, res) => {
@@ -140,11 +174,26 @@ app.post("/sensors/air/mockData/:num", async (req, res) => {
         req, res
     );
     for (let i=0; i < req.params.num; i++){
-        console.log(getRandomNum(12, 0))
+        const fullMonths = [1, 3, 5, 7, 8, 10, 12]
+        // Math.min() or Math.max() are used so i cant get over or under allowerd boundaries but still giving all numbers equal chance
+        // If i generate month 0 or day 0 it will replace it with 1 (bc there is no day 0 in the month)
+        let month = Math.round( Math.max(Math.random()*12, 1) )
+        let monthMltp = fullMonths.includes(month) ?    31 : // if month is one of the 31-days months
+                        month===2                  ?    28 : // if month is not one of the 31-days months but its februar
+                                                        30   // if month is one of the 30-days months
+        let day = Math.round(   Math.max(Math.random()*monthMltp, 1) )
+        const date = `2023-${month}-${day}`
+
+        // If hour, minute or second is generated with its full form (24, 60, 60) it will correct it (23, 59, 59)
+        const hour = Math.round( Math.min(Math.random()*24, 23) )
+        const min = Math.round(  Math.min(Math.random()*60, 59) )
+        const sec = Math.round(  Math.min(Math.random()*60, 59) )
+        const time = `${hour}:${min}:${sec}`
+
         await db.promise().query(
-            "insert into AIR_MEASUREMENTS(date, time, sensor, temperature, humidity, wind, gas, methan, radiation, particles) values(" + 
-                `"2023:${Math.round(Math.random()*12)}:${Math.round(Math.random()*30)}", ` + 
-                `"${Math.round(Math.random()*24)}:${Math.round(Math.random()*60)}:${Math.round(Math.random()*60)}", ` + 
+            "insert into AIR_MEASUREMENTS(date, time, sensor, temperature, humidity, wind, gas, methane, radiation, particles) values(" + 
+                `"${date}", ` + 
+                `"${time}", ` + 
                 (getRandomNum(99, 0)+1) + ", " +
                 getRandomNum(32) + ", " + 
                 getRandomNum(100) + ", " +
@@ -157,9 +206,24 @@ app.post("/sensors/air/mockData/:num", async (req, res) => {
         )
     }
     
-    return log.end(0, 1) // I havent implemeted error cathcing logic yet so we just return good message always
+    return log.end(0, {"status": "done"}) // I havent implemeted error cathcing logic yet so we just return good message always
 })
 
+
+app.get("/statistics/air/:latitude/:longitude/:radius", async (req, res) => {
+    const lat = req.params.latitude
+    const lng = req.params.longitude
+    const radius = req.params.radius;
+    const [sensorsRaw] = await db.promise().query("SELECT * FROM AIR_SENSORS;")
+    const sensors = [];
+    sensorsRaw.map(sen => {
+        sen.d = calculateDistance(lat, lng, sen.latitude, sen.longitude)
+        if(sen.d <= dpk*radius) data.push(sen)
+    });
+    
+
+    res.status(200).json({sensors: sensors, measurements: measurements});
+})
 
 app.listen(port, () => {
     console.log(`\n\n\n${y}[--------------${y}|${w} SERVER IS ONLINE ${y}|${y}--------------]${w}`)

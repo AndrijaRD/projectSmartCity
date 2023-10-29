@@ -3,8 +3,22 @@
     min-width: 100%;
     min-height: 100vh;
     color: #fff;
-    background-color: var(--color1);
+    background-color: var(--main);
     overflow-y: scroll;
+  }
+  main.Home .notification {
+    width: 90%;
+    height: 40px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: var(--green);
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(-50%);
+    margin-left: 50%;
+    top: 20px;
   }
   main.Home .top {
     width: 100%;
@@ -29,10 +43,10 @@
     width: 300px;
     height: 40px;
     margin: 40px 0;
-    background-color: var(--color3);
+    background-color: var(--blue);
     border: none;
     border-radius: 20px;
-    color: var(--color4);
+    color: var(--opposite);
     font-size: 100%;
     font-weight: 600;
     cursor: pointer;
@@ -50,11 +64,11 @@
     height: fit-content;
   }
   main.Home .middle {
-    background-color: var(--color4);
+    background-color: var(--opposite);
     width: 100%;
     min-height: 30vh;
     padding: 10px;
-    color: var(--color1);
+    color: var(--main);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -71,9 +85,9 @@
   main.Home .middle .app-list .app {
     height: 10vh;
     min-width: 350px;
-    background-color: var(--color1);
+    background-color: var(--main);
     border-radius: 20px;
-    color: var(--color4);
+    color: var(--opposite);
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -87,11 +101,11 @@
     height: 6vh;
   }
   main.Home .bottom {
-    background-color: var(--color1);
+    background-color: var(--main);
     width: 100%;
     min-height: 30vh;
     padding: 10px;
-    color: var(--color4);
+    color: var(--opposite);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -110,10 +124,10 @@
     padding: 15px 10px;
     text-align: center;
     border-radius: 20px;
-    background-color: var(--color2);
+    background-color: var(--sidecolor);
   }
   main.Home .bottom .texts .textbox h3 {
-    color: var(--color4);
+    color: var(--opposite);
     font-size: 22px;
     font-weight: 400;
   }
@@ -122,7 +136,7 @@
   .Home {
     display: flex;
     flex-direction: column;
-    background-color: var(--color1);
+    background-color: var(--main);
   }
   .Home .top {
     height: 80vh;
@@ -155,19 +169,19 @@
     width: 90%;
     height: 40px;
     margin: 30px 0;
-    background-color: var(--color3);
+    background-color: var(--blue);
     border: none;
     border-radius: 20px;
     font-weight: 600;
     font-size: 18px;
   }
   .Home .middle {
-    background-color: var(--color4);
+    background-color: var(--opposite);
     padding: 20px 0;
   }
   .Home .middle h1 {
     font-size: 24px;
-    color: var(--color1);
+    color: var(--main);
   }
   .Home .middle .app-list {
     display: flex;
@@ -182,7 +196,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background-color: var(--color2);
+    background-color: var(--sidecolor);
     margin: 5px 0;
   }
   .Home .middle .app-list .app img {
@@ -206,7 +220,7 @@
   .Home .bottom .texts .textbox {
     width: 90%;
     min-width: 300px;
-    background-color: var(--color2);
+    background-color: var(--sidecolor);
     margin: 10px 0;
     padding: 10px;
     font-size: 18px;
@@ -222,7 +236,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--color4);
+  background-color: var(--opposite);
   border-radius: 6px;
 }
 
