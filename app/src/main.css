@@ -5,6 +5,10 @@
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
 }
+body{
+  max-width: 100%;
+  overflow-x: hidden;
+}
 
 :root {
   line-height: 1.5;
@@ -39,3 +43,37 @@
 body{
   background: var(--main);
 }
+
+.input {
+  min-width: 400px;
+  width: 1000px;
+  max-width: 500px;
+  height: 40px;
+  margin: 5px 0;
+  border-radius: 10px;
+  color: var(--opposite);
+  background-color: var(--sidecolor);
+  border: none;
+  outline: none;
+  padding: 0 10px;
+  font-size: 16px;
+}
+.button{
+  min-width: 300px;
+  width: 80%;
+  max-width: 400px;
+  height: 35px;
+  border-radius: 10px;
+  margin: 20px 0;
+  border: none;
+  outline: none;
+  background-color: var(--blue);
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+/** FOOTER **/
+
+

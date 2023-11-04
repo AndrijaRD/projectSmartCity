@@ -35,12 +35,39 @@ const u = "\x1b[4m"  // underline
 const d = "\x1b[0m"  // default text-formating
 const o = "\x1b[1m"  // bold text
 
+/*
+insert into sensorMetrics(metric, unit, dangerZone) values("brzina vetra", "m/s", "-1|-1|17|27");
+
+*/
+
+const generateToken = () => [...Array(16)].map(() => Math.random().toString(36)[2]).join('');
 
 //------------------------------------------------------------//
 // ---------------------- R O U T E S ------------------------//
 //------------------------------------------------------------//
 
+app.post("/account/login", async (req, res) => {
+    const [[user]] = await db.promise().query(`SELECT * FROM users WHERE email="${req.body.email}"`)
+    if(user.password !== bcrypt.hashSync(req.body.password, user.salt)) return res.status(200).json({found: false})
+    const token = generateToken()
+    await db.promise().query(`insert into activeTokens(userId, token) values(${user["userId"]}, "${token}")`)
+    return res.status(200).json({found: true, token: token, admin: user.admin})
+})
 
+app.post("/account/signup", async (req, res) => {
+    const salt = bcrypt.genSaltSync();
+    const command = "insert into users(name, email, birthdate, password, salt) " +
+    `values("${req.body['name']}", "${req.body['email']}", "${req.body['birthdate']}", "${bcrypt.hashSync(req.body['password'], salt)}", "${salt}");`;
+    try{
+        const token = generateToken()
+        const [user] = await db.promise().query(command)
+        db.promise().query(`insert into activeTokens(userId, token) values(${user["insertId"]}, "${token}")`)
+        res.status(200).json({succesfull: true, token: token})
+    } catch (error) {
+        console.log(error)
+        res.status(200).json({succesfull: false})
+    }
+})
 
 
 

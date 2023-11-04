@@ -1,0 +1,96 @@
+#theme {
+  position: absolute;
+  width: 50px;
+  right: 10px;
+  top: 10px;
+  filter: invert(var(--invert));
+  cursor: pointer;
+}
+
+main.Home {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--main);
+  color: var(--opposite);
+}
+main.Home .top {
+  display: flex;
+  width: 100%;
+  height: 90vh;
+}
+main.Home .top .left {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+main.Home .top .left h1 {
+  font-size: 48px;
+  font-weight: 400;
+}
+main.Home .top .left h2 {
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+  margin: 10px;
+}
+main.Home .top .left h3 {
+  font-weight: 400;
+}
+main.Home .top .left h3 a {
+  color: var(--opposite);
+}
+main.Home .top img {
+  width: 45%;
+  margin: 0 2.5%;
+}
+main.Home .bottom {
+  width: 100%;
+  height: -moz-fit-content;
+  height: fit-content;
+  padding-bottom: 20px;
+  background-color: var(--sidecolor);
+  color: var(--opposite);
+}
+main.Home .bottom h1 {
+  font-weight: 600;
+  margin: 10px 20px;
+}
+main.Home .bottom .app-wrapper {
+  display: flex;
+  width: 100%;
+  overflow-x: scroll;
+  margin-left: 40px;
+}
+main.Home .bottom .app-wrapper .app {
+  width: 300px;
+  height: 60px;
+  border-radius: 20px;
+  margin: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  cursor: pointer;
+  background-color: var(--opposite);
+  color: #fff;
+}
+main.Home .bottom .app-wrapper .app img {
+  height: 50px;
+}
+main.Home .bottom .app-wrapper .app h1 {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+footer {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+footer .top {
+  display: flex;
+  border: 1px solid;
+}/*# sourceMappingURL=Home.css.map */
