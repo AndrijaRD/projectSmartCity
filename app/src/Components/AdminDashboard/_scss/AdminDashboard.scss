@@ -1,0 +1,150 @@
+:root{
+    --purple: #873af6;
+    --purleblue: #5a55ec;
+    --blue: #2598e5;
+    --lightblue: #0ab1fc;
+    --greenblue: #2fe6da;
+    --green: #0ec084;
+    --red: #fc8787;
+    --text-color: #fff;
+    --navbar-color: #0c1220;
+    --sections-color: #181d29;
+    --background-color: #0b101a;
+    --border-color: #3d424d;
+
+    --navbar-wh: 8vh; // navbar width/height
+
+    --topbar-icon-height: 5vh;
+    --topbar-button-height: 3vh;
+    --topbar-pfp-height: 5vh;
+
+    --sidebar-button-height: 3vh;
+    --sidebar-button-width: 3vh;
+}
+.AdminDashboard{
+    width: 100%;
+    height: 100vh;
+    background-color: var(--background-color);
+
+    nav.topbar{
+        height: var(--navbar-wh);
+        width: 100%;
+        background-color: var(--navbar-color);
+        display: flex;
+        border-bottom: 1px solid var(--border-color);
+
+        .icon{
+            height: var(--navbar-wh);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 calc(calc(var(--navbar-wh) - var(--topbar-icon-height)) / 2);
+
+            img{height: var(--topbar-icon-height);}
+        }
+        .content{
+            display: flex;
+            height: var(--navbar-wh);
+            width: calc(100% - var(--navbar-wh));
+            align-items: center;
+            justify-content: space-between;
+
+            .leftside{
+                display: flex;
+                padding: 5px 0;
+                align-items: center;
+                border-right: 2px solid var(--border-color);
+                
+                button{
+                    height: var(--topbar-button-height);
+                    background: transparent;
+                    border: none;
+                    margin: 0 10px;
+                    cursor: pointer;
+
+                    img{ height: var(--topbar-button-height);}
+                }
+            }
+            .rightside{
+                display: flex;
+                align-items: center;
+
+                img{height: var(--topbar-pfp-height); margin: 0 10px}
+                .info{
+                    margin: 0 10px;
+                    display: flex;
+                    flex-direction: column;
+                    hr{color: var(--border-color);}
+                    h3{font-weight: 400;}
+                }
+            }
+        }
+    }
+    .bottom{
+        width: 100%;
+        height: calc(100vh - var(--navbar-wh));
+        display: flex;
+
+        nav.sidebar{
+            width: calc(var(--navbar-wh) + 1px);
+            height: calc(100vh - var(--navbar-wh));
+            border-right: 1px solid var(--border-color);
+            background: var(--navbar-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+
+            .top{
+                width: var(--navbar-wh);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            .bottom{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: end;
+            }
+            button{
+                background-color: transparent;
+                border: none;
+                margin: 10px 0;
+                padding: 8px;
+                border-radius: 1vh;
+                width: 5vh;
+                height: 5vh;
+                cursor: pointer;
+                img{ width: 100%; height: fit-content;}
+            }
+            button.active{ background-color: var(--sections-color); border: 1px solid var(--border-color);}
+            .devider{width: 90%;height: 2px;background-color: var(--border-color);margin: 10px 0;}
+        }
+
+        .mainWindow{
+            width: calc(100% - var(--navbar-wh));
+            height: calc(100vh - var(--navbar-wh));
+            padding: 20px 20px;
+            
+            .row{
+                display: flex;
+                justify-content: space-between;
+            }
+            .section.s1{
+                width: 55%;
+                height: 40vh;
+                background-color: var(--sections-color);
+                border-radius: 20px;
+            }
+            .section.s2{
+                width: 35%;
+                height: 40vh;
+                background-color: var(--sections-color);
+                border-radius: 20px;
+            }
+        }
+    }
+}

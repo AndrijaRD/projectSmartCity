@@ -11,6 +11,13 @@ const port = 4001;
 // This is the coordinate distance between two points that are 1km a part
 const dpk = 0.00899322
 
+// Distance per 1/thousand of coordinate (0.001)
+// This is how many km are in one thousands of a coordinate distance
+const dpt = 0.11119487;
+
+// |---------|
+// 1km = 0.009 coordinates
+
 app.use(express.json())
 app.use(cors());
 
@@ -35,10 +42,26 @@ const u = "\x1b[4m"  // underline
 const d = "\x1b[0m"  // default text-formating
 const o = "\x1b[1m"  // bold text
 
+const aboutTexts = {
+    "MCUs": "This table is for listing all microcontrollers and there specifications.",
+    "users":  "This table is for listing all users and there data including there premission levels.",
+    "MPs": "This table is for listing all Measurement Possitions with there device model and location",
+    "devices": "This table is for listing all devices that will be used as MPs.",
+    "batteries": "This table is for listing all batteries and there specifications.",
+    "metrics": "This table is for listing all metrics and there unit of measurement and there warning and danger zones.",
+    "logs": "This table is for listing all the changes that have happened to the DB trough this UI.",
+}
 /*
 insert into sensorMetrics(metric, unit, dangerZone) values("brzina vetra", "m/s", "-1|-1|17|27");
 
 */
+
+function waitUntil(conditionFunc, delay = 100) {
+    return new Promise(resolve => {
+        const checkCondition = () => conditionFunc() ? resolve() : setTimeout(checkCondition, delay);
+        checkCondition();
+    });
+}
 
 const generateToken = () => [...Array(16)].map(() => Math.random().toString(36)[2]).join('');
 
@@ -67,6 +90,63 @@ app.post("/account/signup", async (req, res) => {
         console.log(error)
         res.status(200).json({succesfull: false})
     }
+})
+
+app.post("/air", async (req, res) => {
+    const [lat, lng] = req.body.location
+    const token = req.body.token
+    const [[ tokenData ]] = await db.promise().query(`SELECT * FROM activeTokens WHERE token="${token}"`)
+    if(tokenData===undefined) return res.status(200).json({status: 400, data: {}})
+    const latMax = lat + dpt*5
+    const latMin = lat - dpt*5
+    const lngMax = lng + dpt*5
+    const lngMin = lng - dpt*5
+    const [ sensors ] = await db.promise().query(`SELECT * FROM MP WHERE latitude<${latMax} and latitude>${latMin} and longitude<${lngMax} and longitude>${lngMin};`)
+    console.log(sensors)
+    res.status(200).json({status: 200, data: {}})
+})
+
+const getUserFromToken = async (token) => (await db.promise().query(`select userId from activeTokens where token="${token}"`))[0][0]['userId']
+const getPremissions = async (userId) => await db.promise().query(`select premissions from users where userId=${userId}`)
+
+app.post("/admin/getTables", async (req, res) => {
+    const userId = await getUserFromToken(req.body.token)
+    if(userId < 1) return res.status(200).json({status: "Failed Login"})
+    if(getPremissions(userId) <= 1) res.status(200).json({status: "Failed Auth"})
+    const tablesRaw = (await db.promise().query("show tables"))[0].map(tableObj => tableObj[Object.keys(tableObj)[0]])
+    const tableData = []
+    const tableDescriptions = []
+    const tableAboutTexts = []
+    const tableNames = []
+    tablesRaw.forEach(async table => {
+        if(table==="activeTokens") return
+        tableNames.push(table)
+        tableDescriptions.push((await db.promise().query(`describe ${table}`))[0])
+        tableAboutTexts.push(aboutTexts[table])
+        const d = (await db.promise().query(`select * from ${table}`))[0]
+        console.log(d)
+        tableData.push(d)
+    })
+    await waitUntil(() =>   {
+        console.log("\nChecking...")
+        console.log(`[${tablesRaw.length-1===tableNames.length?"1":"0"}] tableNames(${tableNames.length}/${tablesRaw.length-1})`)
+        console.log(`[${tablesRaw.length-1===tableDescriptions.length?"1":"0"}] tableDescriptions(${tableDescriptions.length}/${tablesRaw.length-1})`)
+        console.log(`[${tablesRaw.length-1===tableAboutTexts.length?"1":"0"}] tableAboutTexts(${tableAboutTexts.length}/${tablesRaw.length-1})`)
+        console.log(`[${tablesRaw.length-1===tableData.length?"1":"0"}] tableData(${tableData.length}/${tablesRaw.length-1})`)
+
+        return  (tablesRaw.length-1===tableNames.length)&&
+                (tablesRaw.length-1===tableDescriptions.length)&&
+                (tablesRaw.length-1===tableAboutTexts.length)&&
+                (tablesRaw.length-1===tableData.length)
+    })
+    res.status(200).json({
+        status: "Success", 
+        tableData: tableData, 
+        tableDescriptions: tableDescriptions,
+        tableAboutTexts: tableAboutTexts,
+        tableNames: tableNames
+    })
+    console.log("Sent Data!")
 })
 
 
