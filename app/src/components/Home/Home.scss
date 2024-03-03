@@ -1,0 +1,187 @@
+
+:root{
+	--red: #e13847;
+	--light-blue: #3bb1f2;
+	--neon-blue: #007cff;
+	--dark-blue: #324960;
+	--light-green: #8aef89;
+	--green: #38c91f;
+	--dark-green: #16a085;
+	--purple: #8e44ad;
+	--purplish-blue: #5f52f0;
+	--blue-genie: #6d60f8;
+	--orange: #edb04e;
+	--black-feather: #0c1c25;
+	--black-beauty: #22252c;
+	--aswad-black: #16181c;
+	--tristesse-black: #0a111e;
+	--navy-gray: #26384b;
+	--midnight-gray: #1f283b;
+	--dracula-gray: #2a3338;
+	--white-smoke: #f5f5f5;
+	--bright-gray: #eaecef;
+	--teal: #028090;
+	--mulberry: #C64191;
+	--tea-green: #C0F8D1;
+	--celtic-blue: #276FBF;
+	--rich-black: #03191E;
+	--light-orange: #e6c8b6;
+  
+	--light-pink: #fcd9d9;
+	--mystic-opal: #fcdec0;
+	--waterfalls: #d7e4ff;
+    --seafoam-pearl: #c6f1da;
+    --bahaman-blis: #3da497;
+    --grass-green: #6fd103;
+    --maui-mist: #e7ebee;
+	--volcanic-sand: #3e3e47;
+
+	--g-blue1: rgba(4,90,183,1);
+	--g-blue2: rgba(23,160,222,1);
+
+	--g-green1: #59c158;
+	--g-green2: #59c158;
+
+	--g-red1: #ee4534;
+	--g-red2: #f1793a;
+
+	--g-orange1: #f09438;
+	--g-orange2: #edb73e;
+
+	--g-purple1: #4710e1;
+	--g-purple2: #5122fc;
+
+    --black-is-back: #10131c;
+    --curio-brown: #978b78;
+}
+
+main.Home{
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--black-is-back);
+    scroll-snap-type: y mandatory;
+
+    .top, .bottom{
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width: 100%;
+    }
+
+    .top{
+        background-image: url("/background3.jpg");
+        background-size: cover;
+        align-items: center;
+
+        h1.title{
+            font-size: 112px;
+            font-weight: 800;
+            color: var(--curio-brown);
+            margin-top: 20px;                                                               ;
+        }
+        h2{
+            color: #000;
+            font-weight: 400;
+            font-size: 18px;
+            margin: 5px 0 40px 0;
+        }
+        .inline { display: flex; }
+        button{
+            height: 40px;
+            width: 200px;
+            border: none;
+            background-color: var(--dark-blue);
+            border-radius: 20px;
+            margin: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            h3{
+                font-size: 18px;
+                color: #fff;
+                font-weight: 600;
+            }
+            img{
+                height: 20px;
+                margin: 0 10px;
+            }
+        }
+    }
+    .bottom{
+        color: #fff;
+        padding-top: 10px;
+
+        .diduknow{
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--curio-brown);
+            padding-bottom: 10px;
+            h3{ font-size: 28px; font-weight: 400; }
+            img{ height: 36px; margin: 5px 20px; }
+        }
+
+        h1.number{
+            font-size: 132px;
+            text-align: center;
+            font-weight: 600;
+        }
+        h1.description{
+            font-size: 32px;
+            text-align: center;
+            font-weight: 400;
+        }
+        .about-list{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            margin: 100px 0;
+
+            .about{
+                
+                display: flex;
+                width: 40%;
+                min-width: 800px;
+                
+                .image-container{
+                    background-color: #fff;
+                    display: flex;
+                    align-items: center;
+                }
+                img{ height: 200px; }
+                h3{
+                    font-weight: 400;
+                    font-size: 22px;
+                    background-color: var(--curio-brown);
+                    padding: 10px;
+                    line-height: 30px;
+                }
+            }
+        }
+        button{
+            width: 400px;
+            margin: 0 auto;
+            display: flex;
+            background: var(--purplish-blue);
+            border: none;
+            height: 60px;
+            border-radius: 30px;
+            align-items: center;
+            justify-content: left;
+            cursor: pointer;
+
+            img{ 
+                height: 50px; 
+                margin: 0 5px; 
+                border: 2px solid #fff; 
+                border-radius: 50%; 
+            }
+            h3{
+                font-size: 20px;
+                color: #fff;
+                margin: 0 10px;
+            }
+        }
+    }
+}
